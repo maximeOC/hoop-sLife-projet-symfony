@@ -7,13 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- asset correspond au dossier public -->
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 
-        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
-        {% block javascripts %}{% endblock %}
-        <script src="{{ asset('assets/js/script.js') }}" defer></script>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('style') }}
+        {% endblock %}
+
+
 
     </head>
     <body>
@@ -21,6 +20,10 @@
         {% include("./_commons/_header.html.twig") %}
         {% block body %}{% endblock %}
         {% include("./_commons/_footer.html.twig") %}
+
+        {% block javascripts %}
+                {{ encore_entry_script_tags('script') }}
+        {% endblock %}
 
     </body>
 </html>
