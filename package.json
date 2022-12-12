@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.2.0",
+    "scss": "sass --watch /public/assets/scss/main.scss:/public/assets/css/main.scss"
+}
+
+}
