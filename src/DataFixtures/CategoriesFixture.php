@@ -37,6 +37,7 @@ class CategoriesFixture extends Fixture
         $manager->persist($category);
 
         $this->addReference('cat-'. $this->count, $category);
+        $this->count++;
         return $category;
     }
 }
