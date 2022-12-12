@@ -9,8 +9,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategoriesFixture extends Fixture
 {
+    private $count = 1;
     public function __construct(private SluggerInterface $slugger){}
-
 
     public function load(ObjectManager $manager): void
     {
@@ -35,6 +35,8 @@ class CategoriesFixture extends Fixture
         $category->setSlug($this->slugger->slug($category->getName())->lower());
         $category->setParent($parentCat);
         $manager->persist($category);
+
+        $this->addReference('cat-'. $this->count, $category);
         return $category;
     }
 }
