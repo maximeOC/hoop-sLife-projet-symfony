@@ -23,12 +23,12 @@ class Categories
     private ?string $name = null;
 
 
-    #[ORM\Column(type: 'Integer')]
-    private ?string $catOrder;
+    #[ORM\Column(type: 'integer')]
+    private ?int $catOrder ;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
-    private ?self $parent = null;
+    private ?self $parent;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $categories;
@@ -64,7 +64,7 @@ class Categories
     }
 
     public function setCatOrder(int $catOrder): self{
-        $this->catOrder = $catOrder;
+       $this->catOrder = $catOrder;
        return $this;
     }
 

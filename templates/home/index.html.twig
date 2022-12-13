@@ -1,8 +1,29 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-<p>
-    Accueil
-</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1> Hoop's Life</h1>
+            </div>
+            <div class="card-container">
+
+                {% for cate in categories %}
+                    {% if cate.parent == null%}
+                        <h2>
+                            {{ cate.name }}
+                        </h2>
+                        <br>
+                    {% else %}
+                    <div class="card-cat">
+                        <a href="">{{ cate.name }}</a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+
+        </div>
+    </div>
 {% endblock %}
