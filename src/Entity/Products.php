@@ -27,9 +27,6 @@ class Products
     #[ORM\Column]
     private ?int $price = null;
 
-    #[ORM\Column]
-    private ?int $stock = null;
-
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
@@ -43,11 +40,18 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]
     private Collection $ordersDetails;
 
+    #[ORM\ManyToMany(targetEntity: Sizes::class, mappedBy: 'sizeName')]
+    private Collection $sizes;
+
+    #[ORM\Column]
+    private ?int $stock = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->ordersDetails = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+        $this->sizes = new ArrayCollection();
     }
 
 
@@ -79,19 +83,6 @@ class Products
         return $this;
     }
 
-
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
 
     public function getCategories(): ?Categories
     {
@@ -174,6 +165,45 @@ class Products
                 $ordersDetail->setProducts(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sizes>
+     */
+    public function getSizes(): Collection
+    {
+        return $this->sizes;
+    }
+
+    public function addSize(Sizes $size): self
+    {
+        if (!$this->sizes->contains($size)) {
+            $this->sizes->add($size);
+            $size->addSizeName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSize(Sizes $size): self
+    {
+        if ($this->sizes->removeElement($size)) {
+            $size->removeSizeName($this);
+        }
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }

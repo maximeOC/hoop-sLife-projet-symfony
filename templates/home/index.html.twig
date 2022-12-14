@@ -25,20 +25,11 @@
                 <h1> Hoop's Life</h1>
             </div>
                 {% for cate in categories %}
-                    {% if cate.parent == null%}
-                        <h2 class="col-12">
-                            {{ cate.name }}
-                        </h2>
-                    {% else %}
                         <div class="col-6">
-                                    <a href="{{ path('app_categories_listes', {slug: cate.slug}) }}" class="card-cat_desc">
-                                        <h3>{{ cate.name }}</h3>
-                                        <p>Voir les produits</p>
-                                    </a>
+                            <h3>{{ cate.name }}</h3>
+                            <a href="{{ path('app_categories_index', {id: cate.id}) }}">Voir les produits</a>
                         </div>
-                    {% endif %}
                 {% endfor %}
-
         </div>
     </div>
 {% endblock %}

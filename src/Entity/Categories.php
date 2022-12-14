@@ -22,23 +22,18 @@ class Categories
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-
     #[ORM\Column(type: 'integer')]
     private ?int $catOrder ;
-
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
-    private ?self $parent;
-
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
     private Collection $products;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    private ?MainCategories $mainCategories = null;
+
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+//        $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
     }
 
@@ -66,48 +61,6 @@ class Categories
     public function setCatOrder(int $catOrder): self{
        $this->catOrder = $catOrder;
        return $this;
-    }
-
-    public function getParent(): ?self
-    {
-        return $this->parent;
-    }
-
-    public function setParent(?self $parent): self
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(self $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->setParent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(self $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            // set the owning side to null (unless already changed)
-            if ($category->getParent() === $this) {
-                $category->setParent(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -139,4 +92,22 @@ class Categories
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function getMainCategories(): ?MainCategories
+    {
+        return $this->mainCategories;
+    }
+
+    public function setMainCategories(?MainCategories $mainCategories): self
+    {
+        $this->mainCategories = $mainCategories;
+        return $this;
+    }
+
+
 }

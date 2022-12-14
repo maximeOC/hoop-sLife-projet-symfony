@@ -3,19 +3,19 @@
 {% block title %} {{ categories.name }} {% endblock %}
 {% block body %}
         <main class="container">
-            <section class="row">
+            <section >
                     <h1 class="col-12">Listes des produits {{ categories.name }}</h1>
-                    {% for product in products %}
-                            <div class="col-3">
-                                <article class="card">
-                                    <div class="card-body">
-                                        <h2 class="card-title">{{ product.name }}</h2>
-                                        <p class="card-text"> {{ product.description }}</p>
-                                        <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit</a>
-                                    </div>
-                                </article>
-                            </div>
-                    {% endfor %}
+                    <div class="col-4 h-100 row">
+                        {% for product in products %}
+                                    <article class="card">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{ product.name }}</h2>
+                                            <p class="card-text"> {{ product.description }}</p>
+                                            <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit</a>
+                                        </div>
+                                    </article>
+                        {% endfor %}
+                    </div>
             </section>
 
         </main>
