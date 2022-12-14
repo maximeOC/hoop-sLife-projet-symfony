@@ -3,6 +3,24 @@
 {% block body %}
     <div class="container">
         <div class="row">
+                <div class="datePlayoff">
+                    <div class="days playoffs">
+                        <div class="number" id="days">0</div>
+                        <p class="days__days">Days</p>
+                    </div>
+                    <div class="hours playoffs">
+                        <div class="number" id="hours">0</div>
+                        <p class="hours__days">hours</p>
+                    </div>
+                    <div class="minutes playoffs">
+                        <div class="number" id="mins">0</div>
+                        <p class="minutes__days">minutes</p>
+                    </div>
+                    <div class="seconds playoffs">
+                        <div class="number" id="seconds">0</div>
+                        <p class="seconds__days">seconds</p>
+                    </div>
+                </div>
             <div class="col-12">
                 <h1> Hoop's Life</h1>
             </div>
@@ -13,7 +31,7 @@
                         </h2>
                     {% else %}
                         <div class="col-6">
-                                    <a href="{{ cate.slug }}" class="card-cat_desc">
+                                    <a href="{{ path('app_categories_listes', {slug: cate.slug}) }}" class="card-cat_desc">
                                         <h3>{{ cate.name }}</h3>
                                         <p>Voir les produits</p>
                                     </a>

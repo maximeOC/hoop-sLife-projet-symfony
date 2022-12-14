@@ -76,9 +76,10 @@ class Products
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
         return $this;
     }
+
+
 
     public function getStock(): ?int
     {

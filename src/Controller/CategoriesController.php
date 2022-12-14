@@ -14,8 +14,11 @@ class CategoriesController extends AbstractController
     #[Route('/{slug}', name: 'listes')]
     public function list(Categories $categories): Response
     {
+        $products = $categories->getProducts();
+
         return $this->render('categories/listes-produits.html.twig', [
             'categories' => $categories,
+            'products' => $products
         ]);
     }
 }

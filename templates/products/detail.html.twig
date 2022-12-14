@@ -1,7 +1,17 @@
 {% extends "base.html.twig" %}
 
-{% block title %} details de produits {% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
         <h1>detail de {{ product.name }}</h1>
+                        <div class="carousel-inner">
+                        {% for img in product.images %}
+{#                                <img class="d-block w-100" src="{{ asset('images/maillot/') ~ img.name }}" alt="">#}
+                        {% endfor %}
+        <div class="col-6">
+                <p>{{ product.description }}</p>
+                <p>Categorie: {{ product.categories.name }}</p>
+                <p class="card-text">prix: {{ product.price/100}} euros </p>
+                <button> Ajouter au panier</button>
+        </div>
 {% endblock %}
