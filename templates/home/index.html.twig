@@ -24,10 +24,10 @@
             <div class="col-12">
                 <h1> Hoop's Life</h1>
             </div>
-                {% for cate in categories %}
+                {% for cate in mainCategories %}
                         <div class="col-6">
                             <h3>{{ cate.name }}</h3>
-                            <a href="{{ path('app_categories_index', {id: cate.id}) }}">Voir les produits</a>
+                            <a href="{{ path('app_categories_index', {main_id: cate.id}) }}">Voir les produits</a>
                         </div>
                 {% endfor %}
         </div>

@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}  {% endblock %}
+{% block title %} {{ categories.name}} {% endblock %}
 
 {% block body %}
-{#        {{ dump(categories[0].name) }}#}
-
-        {% for cate in categories %}
+        {% for cate in detailCatMain %}
                 <div class="row">
                         <div class="card col-4">
                                 {{ cate.name }}

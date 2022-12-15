@@ -39,6 +39,16 @@ class CategoriesRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByMainCategories($categorie): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.mainCategories = :mainCategories')
+            ->setParameter('mainCategories', $categorie)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 //    /**
 //     * @return Categories[] Returns an array of Categories objects
 //     */
