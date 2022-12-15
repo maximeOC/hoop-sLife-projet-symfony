@@ -2,6 +2,7 @@
 
 {% block title %} {{ categories.name }} {% endblock %}
 {% block body %}
+    {{ dump(products)  }}
         <main class="container">
             <section >
                     <h1 class="col-12">Listes des produits {{ categories.name }}</h1>
@@ -11,7 +12,7 @@
                                         <div class="card-body">
                                             <h2 class="card-title">{{ product.name }}</h2>
                                             <p class="card-text"> {{ product.description }}</p>
-                                            <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit</a>
+                                            <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le detail produit</a>
                                         </div>
                                     </article>
                         {% endfor %}

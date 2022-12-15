@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\MainCategories;
+use App\Entity\Products;
 use App\Repository\CategoriesRepository;
 use App\Repository\MainCategoriesRepository;
 use App\Repository\ProductsRepository;
@@ -29,12 +30,23 @@ class CategoriesController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'listes')]
-    #[ParamConverter('categories', options: ['mapping' => ['slug' => 'slug']])]
-    public function list(ProductsRepository $productsRepository, ): Response
+//    #[ParamConverter('categories', options: ['mapping' => ['slug' => 'slug']])]
+    public function list(ProductsRepository $productRepository): Response
     {
-        $products = $categories->getProducts();
+        $products = $productRepository->findBy(["categories" => 'slug']);
         return $this->render('categories/listes-produits.html.twig', [
             'products' => $products
         ]);
+
     }
+
+
+//    #[Route('/{id}', name: 'listes', methods: 'GET')]
+//    #[ParamConverter('categories', options: ['mapping' => ['id' => 'id']])]
+//    public function list( ProductsRepository $productsRepository ): Response
+//    {
+//        return $this->render('categories/listes-produits.html.twig', [
+//            'products' => $productsRepository->findAll()
+//        ]);
+//    }
 }

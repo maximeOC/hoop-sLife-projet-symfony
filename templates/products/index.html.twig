@@ -4,4 +4,11 @@
 
 {% block body %}
    <h1> Tous les produits </h1>
+    {{ dump() }}
+   {% for product in products %}
+         {{ product.name }}
+       {{ product.description }}
+         {{ product.price / 100 }}
+       <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
+   {% endfor %}
 {% endblock %}

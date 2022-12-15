@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Images;
 use App\Entity\Products;
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,21 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/produits', name: 'products_')]
 class ProductsController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index(): Response
+    #[Route('/categorie/{id}', name: 'categorie_id')]
+    public function index(Request $request, ProductsRepository $productsRepository): Response
     {
+        $products = $productsRepository->findBy(['categories' => $request->get('id')]);
         return $this->render('products/index.html.twig', [
-            'controller_name' => 'ProductsController',
+            'products' => $products,
         ]);
     }
+
     #[Route('/{slug}', name: 'details')]
-    public function details(Products $products): Response{
-
-        $images = $products->getImages();
-
+    public function details(ProductsRepository $productsRepository, Request $request): Response
+    {
+        $productId = $productsRepository->findOneBy(['slug' => $request->get('slug')]);
+//        dump($productId->getId());
+        $product = $productsRepository->find($productId->getId());
         return $this->render('products/detail.html.twig', [
-            'products' => $products,
-            'images' => $images
+            'product' => $product,
         ]);
     }
 }

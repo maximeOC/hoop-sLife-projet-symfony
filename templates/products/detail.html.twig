@@ -1,16 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ products.name }}{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
-        <h1>detail de {{ products.name }}</h1>
+        <h1>detail de {{ product.name }}</h1>
                         <div class="carousel-inner">
 {#                            <img src="{{ asset('build/images/jamorant.webp') }}" alt="">#}
                         </div>
         <div class="col-6">
-                <p>{{ products.description }}</p>
-                <p>Catégorie: {{ products.categories.name }}</p>
-                <p class="card-text">prix: {{ products.price/100}} euros </p>
+                <p>{{ product.description }}</p>
+                <p>Catégorie: {{ product.categories.name }}</p>
+                <p class="card-text">prix: {{ product.price/100}} euros </p>
                 <button>Ajouter au panier</button>
         </div>
 {% endblock %}
