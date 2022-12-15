@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Categories;
+use App\Entity\MainCategories;
 use App\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -39,15 +40,21 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::section('HoopsLife');
 
+        yield MenuItem::subMenu('Categorie principale')->setSubItems([
+            MenuItem::linkToCrud('ajouter un produit', 'fas fa-list', MainCategories::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('afficher produits', 'fas fa-eye', MainCategories::class)
+        ]);
         yield MenuItem::subMenu('Categories')->setSubItems([
             MenuItem::linkToCrud('ajouter une categories', 'fas fa-list', Categories::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('afficher categories', 'fas fa-eye', Categories::class)
         ]);
 
-        yield MenuItem::subMenu('produits')->setSubItems([
+        yield MenuItem::subMenu('Produits')->setSubItems([
             MenuItem::linkToCrud('ajouter un produit', 'fas fa-list', Products::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('afficher produits', 'fas fa-eye', Products::class)
         ]);
+
+
 
 
 

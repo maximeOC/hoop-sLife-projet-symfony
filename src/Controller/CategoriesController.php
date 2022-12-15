@@ -28,5 +28,4 @@ class CategoriesController extends AbstractController
             'detailCatMain' => $detailCatMain
         ]);
     }
-
 }

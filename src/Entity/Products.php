@@ -50,7 +50,7 @@ class Products
     {
         $this->images = new ArrayCollection();
         $this->ordersDetails = new ArrayCollection();
-        $this->created_at = new \DateTimeImmutable();
+        $this->created_at = new \DateTime();
         $this->sizes = new ArrayCollection();
     }
 
@@ -137,8 +137,6 @@ class Products
 
         return $this;
     }
-
-
     /**
      * @return Collection<int, OrdersDetails>
      */

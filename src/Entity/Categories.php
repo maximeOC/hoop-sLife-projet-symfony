@@ -26,7 +26,7 @@ class Categories
     private Collection $products;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
-    private ?MainCategories $mainCategories = null;
+    private ?MainCategories $mainCategories;
 
     public function __construct()
     {

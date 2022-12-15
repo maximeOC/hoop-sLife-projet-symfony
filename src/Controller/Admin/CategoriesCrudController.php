@@ -24,14 +24,14 @@ class CategoriesCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            AssociationField::new('parent', 'test')->renderAsNativeWidget(),
-            NumberField::new('catOrder')
+            AssociationField::new('mainCategories', 'selection categorie principale')->renderAsNativeWidget(),
         ];
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-       if (!$entityInstance instanceof  Categories) return;
-       $entityInstance->setParent(new Categories());
+
+        if (!$entityInstance instanceof  Categories) return;
+        $entityInstance->getMainCategories();
     }
 }
