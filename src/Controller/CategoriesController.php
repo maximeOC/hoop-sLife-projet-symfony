@@ -6,6 +6,7 @@ use App\Entity\Categories;
 use App\Entity\MainCategories;
 use App\Repository\CategoriesRepository;
 use App\Repository\MainCategoriesRepository;
+use App\Repository\ProductsRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,20 +23,18 @@ class CategoriesController extends AbstractController
     {
         $detailCatMain = $CategoriesRepository->findByMainCategories($mainCategories->getId());
         return $this->render('categories/index.html.twig', [
-            'categories' => $mainCategories,
+            'maincategories' => $mainCategories,
             'detailCatMain' => $detailCatMain
         ]);
     }
 
-
-//    #[Route('/{slug}', name: 'listes')]
-//    public function list(Categories $categories): Response
-//    {
-//        $products = $categories->getProducts();
-//
-//        return $this->render('categories/listes-produits.html.twig', [
-//            'categories' => $categories,
-//            'products' => $products
-//        ]);
-//    }
+    #[Route('/{slug}', name: 'listes')]
+    #[ParamConverter('categories', options: ['mapping' => ['slug' => 'slug']])]
+    public function list(ProductsRepository $productsRepository, ): Response
+    {
+        $products = $categories->getProducts();
+        return $this->render('categories/listes-produits.html.twig', [
+            'products' => $products
+        ]);
+    }
 }

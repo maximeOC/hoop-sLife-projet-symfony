@@ -22,9 +22,6 @@ class Categories
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'integer')]
-    private ?int $catOrder ;
-
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
     private Collection $products;
 
@@ -52,15 +49,6 @@ class Categories
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getCatOrder(): ?int{
-        return $this->catOrder;
-    }
-
-    public function setCatOrder(int $catOrder): self{
-       $this->catOrder = $catOrder;
-       return $this;
     }
 
     /**

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ categories.name}} {% endblock %}
+{% block title %} {{ maincategories.name}} {% endblock %}
 
 {% block body %}
         {% for cate in detailCatMain %}
                 <div class="row">
                         <div class="card col-4">
                                 {{ cate.name }}
-                                <a href="">Voir les produits correspondant</a>
+                                <a href="{{ path('app_categories_listes', {slug: cate.slug}) }}">Voir les produits correspondant </a>
                         </div>
                 </div>
         {% endfor %}
