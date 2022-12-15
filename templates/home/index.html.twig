@@ -1,35 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-                <div class="datePlayoff">
-                    <div class="days playoffs">
-                        <div class="number" id="days">0</div>
-                        <p class="days__days">Days</p>
-                    </div>
-                    <div class="hours playoffs">
-                        <div class="number" id="hours">0</div>
-                        <p class="hours__days">hours</p>
-                    </div>
-                    <div class="minutes playoffs">
-                        <div class="number" id="mins">0</div>
-                        <p class="minutes__days">minutes</p>
-                    </div>
-                    <div class="seconds playoffs">
-                        <div class="number" id="seconds">0</div>
-                        <p class="seconds__days">seconds</p>
-                    </div>
+    <main>
+        <div class="datePlayoff">
+            <p class="temps">Temps restant avant examen, bouge toi le cul !</p>
+            <div class="playoffTime">
+                <div class="days playoffs">
+                    <div class="number" id="days">0</div>
+                    <p class="days__days">Days</p>
                 </div>
-            <div class="col-12">
-                <h1> Hoop's Life</h1>
+                <div class="hours playoffs">
+                    <div class="number" id="hours">0</div>
+                    <p class="hours__days">hours</p>
+                </div>
+                <div class="minutes playoffs">
+                    <div class="number" id="mins">0</div>
+                    <p class="minutes__days">minutes</p>
+                </div>
+                <div class="seconds playoffs">
+                    <div class="number" id="seconds">0</div>
+                    <p class="seconds__days">seconds</p>
+                </div>
             </div>
-                {% for cate in mainCategories %}
-                        <div class="col-6">
-                            <h3>{{ cate.name }}</h3>
-                            <a href="{{ path('app_categories_index', {main_id: cate.id}) }}">Voir les produits</a>
-                        </div>
-                {% endfor %}
         </div>
-    </div>
+        <div class="col-12">
+            <h1> Hoop's Life</h1>
+        </div>
+
+            <div class="l-container">
+                {% for cate in mainCategories %}
+                <div class="b-game-card">
+                        <div class="b-game-card__cover">
+                            <h3>{{ cate.name }}</h3>
+                            <a href="{{ path('app_categories_index', {main_id: cate.id}) }}">Voir les catégories de {{cate.name}} </a>
+                        </div>
+                </div>
+                {% endfor %}
+            </div>
+
+    </main>
 {% endblock %}

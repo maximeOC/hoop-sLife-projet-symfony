@@ -29,24 +29,4 @@ class CategoriesController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'listes')]
-//    #[ParamConverter('categories', options: ['mapping' => ['slug' => 'slug']])]
-    public function list(ProductsRepository $productRepository): Response
-    {
-        $products = $productRepository->findBy(["categories" => 'slug']);
-        return $this->render('categories/listes-produits.html.twig', [
-            'products' => $products
-        ]);
-
-    }
-
-
-//    #[Route('/{id}', name: 'listes', methods: 'GET')]
-//    #[ParamConverter('categories', options: ['mapping' => ['id' => 'id']])]
-//    public function list( ProductsRepository $productsRepository ): Response
-//    {
-//        return $this->render('categories/listes-produits.html.twig', [
-//            'products' => $productsRepository->findAll()
-//        ]);
-//    }
 }

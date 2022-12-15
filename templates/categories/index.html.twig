@@ -3,12 +3,14 @@
 {% block title %} {{ maincategories.name}} {% endblock %}
 
 {% block body %}
-        {% for cate in detailCatMain %}
-                <div class="row">
-                        <div class="card col-4">
-                                {{ cate.name }}
-                                <a href="{{ path('products_categorie_id', {id: cate.id}) }}">Voir les produits correspondant </a>
+        <div class="l-container">
+                {% for cate in detailCatMain %}
+                        <div class="b-game-card">
+                                <div class="b-game-card__cover">
+                                        <h2>{{ cate.name }}</h2>
+                                        <a href="{{ path('products_categorie_id', {id: cate.id}) }}">Voir les produits correspondant à {{cate.slug}} </a>
+                                </div>
                         </div>
-                </div>
-        {% endfor %}
+                {% endfor %}
+        </div>
 {% endblock %}
