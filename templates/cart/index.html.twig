@@ -25,7 +25,9 @@
                     <td>{{ data.quantity }}</td>
                     <td>{{ data.quantity * data.product.price }} €</td>
                     <td>
-                        <a href="{{ path('cart_add', {id: data.product.id}) }}">Ajouter</a>
+                        <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add">Ajouter</a>
+                        <a href="" class="cart-delete">Supprimer 1 articles</a>
+                        <a href="" class="cart-delete">Supprimer tous les articles </a>
                     </td>
                 </tr>
             {% else %}

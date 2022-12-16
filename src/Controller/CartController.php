@@ -21,7 +21,6 @@ class CartController extends AbstractController
 
         foreach ( $cart as $id => $quantity){
             $product = $productsRepository->find($id);
-
             //faire un push dans le panier
             $dataCart[] = [
                 "product" => $product,
