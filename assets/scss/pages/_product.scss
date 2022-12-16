@@ -1,0 +1,25 @@
+.product{
+  margin: 5px;
+  .product-card {
+
+    display: flex;
+    .product-Image {
+      width: 400px;
+      height: 400px;
+    }
+    &__detail {
+
+      width: 20%;
+
+      &__description {
+        margin: 10px;
+      }
+      &__categorie {
+        margin: 10px
+      }
+      &__price{
+        margin: 10px;
+      }
+    }
+  }
+}

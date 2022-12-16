@@ -20,6 +20,12 @@ class Images
     #[ORM\JoinColumn(nullable: false)]
     private ?Products $products = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $alt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $path = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,29 @@ class Images
     public function setProducts(?Products $products): self
     {
         $this->products = $products;
+
+        return $this;
+    }
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(?string $path): self
+    {
+        $this->path = $path;
 
         return $this;
     }

@@ -15,8 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 class ProductsCrudController extends AbstractCrudController
 {
 
-    public const baseImages = 'upload/images/products';
-    public const dirImages = 'public/upload/images/products';
+    public const baseImages = '/assets/images/products';
+    public const dirImages = '/public/build/images/products';
 
     public static function getEntityFqcn(): string
     {

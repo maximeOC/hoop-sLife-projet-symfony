@@ -11,11 +11,11 @@ Encore
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
 
-    .copyFiles({
-        from: '.assets/images/',
-
-        to: 'images/[path][name].[ext]',
-    })
+    // .copyFiles({
+    //     from: '.assets/images/',
+    //
+    //     to: 'images/[path][name].[ext]',
+    // })
 
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
@@ -51,7 +51,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    .enableVersioning()
 
     // configure Babel
     // .configureBabel((config) => {
@@ -66,6 +66,13 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+
+    .enablePostCssLoader()
+
+    .copyFiles({
+        from:'./assets/images',
+        to: 'images/[path][name].[ext]'
+    })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

@@ -3,14 +3,19 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
+{#    {{ dump(product.images) }}#}
+    <main class="product">
         <h1>detail de {{ product.name }}</h1>
-                        <div class="carousel-inner">
-{#                            <img src="{{ asset('build/images/jamorant.webp') }}" alt="">#}
+                <div class="product-card">
+                    {% for image in product.images  %}
+                        <img class="product-Image" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">
+                    {% endfor %}
+                        <div class="product-card__detail">
+                                <p class="product-card__detail__description">{{ product.description }}</p>
+                                <p class="product-card__detail__categorie">Catégorie: {{ product.categories.name }}</p>
+                                <p class="product-card__detail__price">prix: {{ product.price/100}} euros </p>
+                                <button><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a> </button>
                         </div>
-        <div class="col-6">
-                <p>{{ product.description }}</p>
-                <p>Catégorie: {{ product.categories.name }}</p>
-                <p class="card-text">prix: {{ product.price/100}} euros </p>
-                <button>Ajouter au panier</button>
-        </div>
+                </div>
+    </main>
 {% endblock %}
