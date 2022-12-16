@@ -1,9 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row"><h1>Panier</h1></div>
     </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in dataCart %}
+                <tr>
+                    <td>{{ data.product.slug }}</td>
+                    <td>{{ data.product.price }} €</td>
+                    <td>{{ data.quantity }}</td>
+                    <td>{{ data.quantity * data.product.price }} €</td>
+                    <td></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

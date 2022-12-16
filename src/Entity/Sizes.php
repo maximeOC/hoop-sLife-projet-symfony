@@ -18,12 +18,13 @@ class Sizes
     #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'sizes')]
     private Collection $sizeName;
 
+    #[ORM\Column(length: 7, nullable: true)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->sizeName = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {
@@ -50,6 +51,18 @@ class Sizes
     public function removeSizeName(Products $sizeName): self
     {
         $this->sizeName->removeElement($sizeName);
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
