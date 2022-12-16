@@ -13,9 +13,13 @@
                           <br>
                           {{ product.description }}
                            <br>
-                          <p> prix: {{ product.price / 100 }} euros</p>
+                          <p> prix: {{ product.price }} euros</p>
                           <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
-                          <a href="" class="btn"> Ajouter au panier </a>
+                        {% if app.user %}
+                          <a href="{{ path('cart_add', {id: product.id}) }}" class="btn"> Ajouter au panier </a>
+                        {% else %}
+                            <a href="{{ path('app_register') }}" class="btn"> Ajouter au panier </a>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

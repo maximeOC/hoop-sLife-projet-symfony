@@ -20,6 +20,7 @@ class ProductsController extends AbstractController
         $products = $productsRepository->findBy(['categories' => $request->get('id')]);
         return $this->render('products/index.html.twig', [
             'products' => $products,
+
         ]);
     }
 

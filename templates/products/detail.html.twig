@@ -13,7 +13,7 @@
                         <div class="product-card__detail">
                                 <p class="product-card__detail__description">{{ product.description }}</p>
                                 <p class="product-card__detail__categorie">Catégorie: {{ product.categories.name }}</p>
-                                <p class="product-card__detail__price">prix: {{ product.price/100}} euros </p>
+                                <p class="product-card__detail__price">prix: {{ product.price}} euros </p>
                                 <button><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a> </button>
                         </div>
                 </div>
