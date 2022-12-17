@@ -43,8 +43,10 @@ class Products
     #[ORM\ManyToMany(targetEntity: Sizes::class, mappedBy: 'sizeName')]
     private Collection $sizes;
 
-    #[ORM\Column]
-    private ?int $stock = null;
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Stock::class)]
+    private Collection $stocks;
+
+
 
     public function __construct()
     {
@@ -52,6 +54,7 @@ class Products
         $this->ordersDetails = new ArrayCollection();
         $this->created_at = new \DateTime();
         $this->sizes = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
 
@@ -194,16 +197,36 @@ class Products
         return $this;
     }
 
-    public function getStock(): ?int
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
     {
-        return $this->stock;
+        return $this->stocks;
     }
 
-    public function setStock(int $stock): self
+    public function addStock(Stock $stock): self
     {
-        $this->stock = $stock;
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setProducts($this);
+        }
 
         return $this;
     }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProducts() === $this) {
+                $stock->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

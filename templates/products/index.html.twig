@@ -15,7 +15,6 @@
                            <br>
                            <p>{{ product.name }}</p>
                           <p> prix: {{ product.price }} euros</p>
-                          <p> Stock: {{ product.stock}} </p>
                         <div class="showproduct">
                                    <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
                                  {% if app.user %}
