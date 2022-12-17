@@ -15,7 +15,7 @@ class CartController extends AbstractController
 {
 
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductsRepository $productsRepository): Response
+    public function index(SessionInterface $session, ProductsRepository $productsRepository, SizesRepository $sizesRepository): Response
     {
         $cart = $session->get("cart", []);
         $dataCart = [];
@@ -23,14 +23,16 @@ class CartController extends AbstractController
 
         foreach ( $cart as $id => $quantity){
             $product = $productsRepository->find($id);
+            $size = $sizesRepository->findAll();
+            dump($size);
             //faire un push dans le panier []
             $dataCart[] = [
+                "size" => $size,
                 "product" => $product,
                 "quantity" => $quantity
             ];
             $total += ($product->getPrice() * $quantity);
         }
-
         return $this->render('cart/index.html.twig', [
             'dataCart' => $dataCart,
             'total' => $total
