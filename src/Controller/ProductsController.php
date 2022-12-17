@@ -29,7 +29,6 @@ class ProductsController extends AbstractController
     {
         $productId = $productsRepository->findOneBy(['slug' => $request->get('slug')]);
         $product = $productsRepository->find($productId->getId());
-        dump($product);
         return $this->render('products/detail.html.twig', [
             'product' => $product,
         ]);
