@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Repository\ProductsRepository;
+use App\Repository\SizesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -12,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
 {
-
 
     #[Route('/', name: 'index')]
     public function index(SessionInterface $session, ProductsRepository $productsRepository): Response
