@@ -3,29 +3,31 @@
 {% block title %}Produits détaillés{% endblock %}
 
 {% block body %}
+    <section>
     <div class="container">
-   <h1> Tous les produits </h1>
-            <div class="l-container__cardProduct">
-                {% for product in products %}
+        <h1> Tous les produits </h1>
+        <div class="l-container__cardProduct">
+            {% for product in products %}
                 <div class="b-game-cardProduct">
                     <div class="b-game-cardProduct__coverProduct ">
-                            {% for image in product.images %}
-                                <img class="product-images" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">
-                            {% endfor %}
-                           <br>
-                           <p>{{ product.name }}</p>
-                          <p> prix: {{ product.price }} euros</p>
+                        {% for image in product.images %}
+                            <img class="product-images" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">
+                        {% endfor %}
+                        <br>
+                        <p>{{ product.name }}</p>
+                        <p> prix: {{ product.price }} euros</p>
                         <div class="showproduct">
-                                   <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
-                                 {% if app.user %}
-                                   <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
-                                 {% else %}
-                                     <a href="{{ path('app_register') }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
-                                 {% endif %}
+                            <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
+                            {% if app.user %}
+                                <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                            {% else %}
+                                <a href="{{ path('app_register') }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
+        </div>
     </div>
+    </section>
 {% endblock %}
