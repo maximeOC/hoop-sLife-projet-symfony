@@ -34,7 +34,7 @@ Class ProductVoters extends Voter{
             return false;
         }
 
-        if($this->security->isGranted('ROLE_ADMIN')) return true;
+        if($this->security->isGranted('ROLE_SUPER_ADMIN')) return true;
 
         switch ($attribute){
             case self::DELETE:
@@ -43,13 +43,12 @@ Class ProductVoters extends Voter{
                 return $this->canEdit();
                 break;
         }
-       return true;
     }
 
     private function canEdit(){
-        return $this->security->isGranted('ROLE_SUPER_ADMIN');
+        return $this->security->isGranted('PRODUCT_EDIT');
     }
     private function canDelete(){
-        return $this->security->isGranted('ROLE_SUPER_ADMIN');
+        return $this->security->isGranted('PRODUCT_DELETE');
     }
 }
