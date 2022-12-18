@@ -32,14 +32,13 @@ class ProductsController extends AbstractController{
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
-            $price = $product->getPrice();
+            $price = $product->getPrice() * 10000;
             $product->setPrice($price);
 
             $entityManager->persist($product);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_products_index');
-
+            return $this->redirectToRoute('app_home_index');
         }
 
         return $this->render('admin/products/add.html.twig', [

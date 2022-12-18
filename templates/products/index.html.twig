@@ -9,7 +9,6 @@
                 {% for product in products %}
                 <div class="b-game-cardProduct">
                     <div class="b-game-cardProduct__coverProduct ">
-
                             {% for image in product.images %}
                                 <img class="product-images" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">
                             {% endfor %}
