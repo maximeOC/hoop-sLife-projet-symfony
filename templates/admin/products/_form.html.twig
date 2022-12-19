@@ -1,11 +1,10 @@
 
 {% block body %}
-{{ form_start(productForm) }}
-    {{ form_row(productForm.name) }}
-    {{ form_row(productForm.price) }}
-    {{ form_row(productForm.description) }}
-    {{ form_row(productForm.categories) }}
-    <button type="submit"> Valider l'ajout du produit </button>
-{{ form_end(productForm) }}
-
+    {{ form_start(productForm) }}
+            {{ form_row(productForm.name) }}
+            {{ form_row(productForm.price) }}
+            {{ form_row(productForm.description) }}
+            {{ form_row(productForm.categories) }}
+        <button type="submit"> {{ button_label | default('Ajouter')}} l'article</button>
+    {{ form_end(productForm) }}
 {% endblock %}

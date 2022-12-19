@@ -36,13 +36,11 @@ Class ProductVoters extends Voter{
 
         if($this->security->isGranted('ROLE_SUPER_ADMIN')) return true;
 
-        switch ($attribute){
-            case self::DELETE:
-                return $this->canDelete();
-            case self::EDIT:
-                return $this->canEdit();
-                break;
-        }
+        return match ($attribute) {
+            self::DELETE => $this->canDelete(),
+            self::EDIT => $this->canEdit(),
+            default => true,
+        };
     }
 
     private function canEdit(){

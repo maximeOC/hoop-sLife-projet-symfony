@@ -47,10 +47,27 @@ class ProductsController extends AbstractController{
     }
 
     #[Route('/edition/{id}', name: 'edit')]
-    public function edit(Products $products): Response{
-        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $products);
-        return $this->render('admin/products/index.html.twig');
+    public function edit(Products $product, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response{
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', $product);
 
+        $productForm = $this->createForm(ProductsFormType::class, $product);
+
+        $productForm->handleRequest($request);
+        if ($productForm->isSubmitted() && $productForm->isValid()){
+            $slug = $slugger->slug($product->getName());
+            $product->setSlug($slug);
+
+            $price = $product->getPrice() * 10000;
+            $product->setPrice($price);
+
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home_index');
+        }
+        return $this->render('admin/products/edit.html.twig', [
+            'productForm' => $productForm->createView()
+        ]);
     }
     #[Route('/suppression/{id}', name: 'delete')]
     public function delete(Products $products): Response{
