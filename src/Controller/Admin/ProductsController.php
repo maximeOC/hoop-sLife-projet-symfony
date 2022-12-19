@@ -57,7 +57,7 @@ class ProductsController extends AbstractController{
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
-            $price = $product->getPrice() * 10000;
+            $price = $product->getPrice() * 100;
             $product->setPrice($price);
 
             $entityManager->persist($product);

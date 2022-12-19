@@ -77,7 +77,7 @@ class Products
 
     public function getPrice(): ?int
     {
-        return $this->price / 100;
+        return $this->price ;
     }
 
     public function setPrice(int $price): self
