@@ -1,11 +1,11 @@
 @import "./../abstracts/variables";
-main{
+.home-container{
   .datePlayoff {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    background-color: #f4f4d2;
+    background-color: #cbd1ed;
     .playoffTime{
       display: flex;
       width: 400px;
@@ -20,7 +20,7 @@ main{
           font-weight: bolder;
           color: black;
         }
-        p {
+        p{
           font-size: 1em;
           color: black;
           font-weight: bolder;
