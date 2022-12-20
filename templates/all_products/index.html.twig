@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AllProductsController!{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="product-header">
+                <h1> Tous les produits </h1>
+                {% if is_granted ("ROLE_SUPER_ADMIN") %}
+                    <a href="{{ path('admin_products_add') }}" class="btn btn-primary">Ajout</a>
+                {% endif %}
+            </div>
+            <div class="l-container__cardProduct">
+                {% for all in allProducts %}
+                    <div class="b-game-cardProduct">
+                        <div class="b-game-cardProduct__coverProduct ">
+                            {% for image in all.images %}
+                                <img class="product-images" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">
+                            {% endfor %}
+                            <br>
+                            <p>{{ all.name }}</p>
+                            <p> prix: {{ all.price / 100 }} euros</p>
+                            {% if is_granted ("ROLE_SUPER_ADMIN") %}
+                                <a href="{{ path('admin_products_edit', {id: all.id}) }}">Modifier</a>
+                                {#                            <a href="{{ path('admin_products_delete') }}"></a>#}
+                            {% endif %}
+                            <div class="showproduct">
+                                <a href="{{ path('products_details', {slug: all.slug}) }}">Voir le produit </a>
+                                {% if app.user %}
+                                    <a href="{{ path('cart_add', {id: all.id}) }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                                {% else %}
+                                    <a href="{{ path('app_register') }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
