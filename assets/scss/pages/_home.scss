@@ -1,11 +1,18 @@
 @import "./../abstracts/variables";
+body{
+  background-image: linear-gradient(to left, #21253b, #292946, #342d50, #413059, #4f3261);
+  color: white;
+}
+
+
 .home-container{
+
   .datePlayoff {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    background-color: #cbd1ed;
+    background-color: #424766;
     .playoffTime{
       display: flex;
       width: 400px;
@@ -22,7 +29,7 @@
         }
         p{
           font-size: 1em;
-          color: black;
+          color: #fffcfc;
           font-weight: bolder;
         }
       }

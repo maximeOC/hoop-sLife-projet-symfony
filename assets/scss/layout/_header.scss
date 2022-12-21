@@ -1,3 +1,38 @@
-.header-cart{
-  margin-top: 9px;
+header{
+  width: 100%;
+  .navigation{
+    position: absolute;
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+     a{
+       color: white;
+     }
+    .logo{
+        font-size: 2em;
+        font-weight: bold;
+
+    }
+    .nav-links{
+      ul{
+        display: flex;
+        li{
+          margin: 0 25px;
+          &:active{
+            a{
+              color: red;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px){
+
 }
