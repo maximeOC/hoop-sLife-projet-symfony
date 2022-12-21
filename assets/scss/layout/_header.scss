@@ -1,6 +1,5 @@
 header{
   width: 100%;
-  background-color: blue;
   height: 150px;
   .navigation{
     position: absolute;
@@ -16,7 +15,6 @@ header{
     .logo{
         font-size: 2em;
         font-weight: bold;
-
     }
     .nav-links{
       ul{
@@ -32,11 +30,19 @@ header{
         }
       }
     }
+    .menu-hamburger{
+       width: 35px;
+      height: 35px;
+      display: none;
+    }
   }
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1000px){
     .nav-links{
       display: none;
+    }
+    .menu-hamburger{
+      display: block;
     }
 }
