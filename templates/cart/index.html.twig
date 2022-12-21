@@ -13,7 +13,7 @@
                          <th>Produit</th>
                          <th>Prix</th>
                          <th>Quantité</th>
-                         <th>Taille</th>
+                         {# <th>Taille</th> #}
                          <th>Total</th>
                          <th>Actions</th>
                      </tr>
@@ -24,7 +24,7 @@
                              <td>{{ data.product.slug }}</td>
                              <td>{{ data.product.price }} €</td>
                              <td>{{ data.quantity }}</td>
-                             <td>{{ dump(data.size) }}</td>
+                             {# <td>{{ dump(data.size) }}</td> #}
                              <td>{{ data.quantity * data.product.price }} €</td>
                              <td>
                                  <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add"><i class="fa-solid fa-plus"></i></a> |
