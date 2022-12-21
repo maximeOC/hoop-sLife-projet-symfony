@@ -9,12 +9,10 @@ header{
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-     a{
-       color: white;
-     }
     .logo{
         font-size: 2em;
         font-weight: bold;
+        color: white;
     }
     .nav-links{
       ul{
@@ -31,18 +29,34 @@ header{
       }
     }
     .menu-hamburger{
-       width: 35px;
-      height: 35px;
       display: none;
+      position: absolute;
+      top: 50px;
+      right: 50px;
     }
   }
 }
 
 @media screen and (max-width: 1000px){
     .nav-links{
-      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      ul{
+        display: flex;
+        flex-direction: column;
+      }
     }
-    .menu-hamburger{
-      display: block;
+  header{
+    .navigation{
+      .menu-hamburger{
+        display: block;
+        width: 50px;
+        height: 50px;
+      }
     }
+  }
+
 }
