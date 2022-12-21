@@ -61,14 +61,17 @@ header{
         align-items: center;
         li{
           margin: 25px;
+          background-image: linear-gradient(to right, #080719, #191924, #272730, #36363c, #464648);
+          border-radius: 10px;
           a{
             font-size: 1.2em;
-            color: #ffffff;
+            font-weight: bolder;
+            color: #fbf8f8;
+            margin: 10px;
           }
         }
       }
     }
-
     .menu-hamburger {
       display: block;
       width: 50px;
