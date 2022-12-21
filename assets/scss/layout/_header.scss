@@ -13,6 +13,7 @@ header{
         font-size: 2em;
         font-weight: bold;
         color: white;
+        
     }
     .nav-links{
       ul{
@@ -41,7 +42,6 @@ header{
 @media screen and (max-width: 1000px){
 header{
   .navigation {
-    padding: 0;
 
     .nav-links {
       z-index: 99999;
@@ -75,7 +75,7 @@ header{
         }
       }
       &.mobile{
-        margin-left: 0;
+        margin-left: 0px;
       }
     }
     .menu-hamburger {
@@ -83,6 +83,8 @@ header{
       width: 50px;
       height: 50px;
       z-index: 9999999999;
+      top: 50px;
+      right: 55px;
     }
   }
 }
