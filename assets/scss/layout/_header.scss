@@ -67,10 +67,13 @@ header{
           background-image: linear-gradient(to left top, #080719, #15151f, #1f1f25, #29292c, #333333);
           border-radius: 10px;
           a{
-            font-size: 1.2em;
+            .nav-a{
+               font-size: 1.2em;
             font-weight: bolder;
-            color: #fbf8f8;
+            color: #ffffff;
             margin: 10px;
+            }
+           
           }
         }
       }
