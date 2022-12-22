@@ -19,7 +19,7 @@ const options = {
 axios.request(options).then(function (response) {
     let games = response.data.response;
     let output = '';
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         output +=
             `<table class="table">
                     <thead>
