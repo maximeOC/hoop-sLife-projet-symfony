@@ -55,7 +55,6 @@ header{
       justify-content: center;
       align-items: center;
       background-color: rgba(255, 255, 255, 0.299);
-      align-items: center;
       margin-left: -100%;
       ul {
         display: flex;
@@ -65,6 +64,8 @@ header{
           margin: 25px;
           background-image: linear-gradient(to left top, #080719, #15151f, #1f1f25, #29292c, #333333);
           border-radius: 10px;
+          width: 100%;
+          text-align: center;
           
             .nav-a{
               font-size: 1.2em;
@@ -75,7 +76,7 @@ header{
         }
       }
       &.mobile{
-        margin-left: 0px;
+        margin-left: 0;
       }
     }
     .menu-hamburger {
