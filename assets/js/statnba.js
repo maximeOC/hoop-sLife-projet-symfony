@@ -21,22 +21,28 @@ axios.request(options).then(function (response) {
     let output = '';
     for (let i = 0; i < 10; i++) {
         output +=
-            `<div class="col-12 statistique">
-                    <p> ${games[i].league} </p>
-                    <p> ${games[i].season} </p>
-                    <p> ${games[i].arena.city} </p>
-                    <p> ${games[i].officials} </p>
-                    <div class="score">
-                        <div class="home">
-                            <p> ${games[i].teams.home.name} </p>
-                            <p> ${games[i].scores.home.points} </p>
-                        </div>
-                        <div class="visitors">
-                            <p> ${games[i].teams.visitors.name} </p>
-                            <p> ${games[i].scores.visitors.points} </p>
-                        </div>
-                    </div>    
-            </div>`
+            `<table class="table">
+                    <thead>
+                        <tr>
+                            <th>league</th>
+                            <th>Année</th>
+                            <th>les arbitres</th>
+                            <th>Equipe à domicile</th>
+                            <th>Equipe jouant à l'exterieur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> NBA </td>
+                            <td>${games[i].season} </td>
+                            <td>${games[i].officials} <br> </td>
+                            <td>${games[i].teams.home.name} /
+                            ${games[i].scores.home.points} points</td>
+                            <td>${games[i].teams.visitors.name} /
+                            ${games[i].scores.visitors.points} points </td>
+                            </tr> 
+                    </tbody>
+            </table>`
     }
     document.getElementById('games').innerHTML = output;
     console.log(response.data.response)

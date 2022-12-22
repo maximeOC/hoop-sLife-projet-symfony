@@ -43,14 +43,9 @@ body{
 }
 
 .articles{
-  height: 50vh;
+  height: 100vh;
       .games{
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        .statistique{
-          display: flex;
-        }
       }
 }
 
