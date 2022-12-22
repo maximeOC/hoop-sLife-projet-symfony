@@ -36,9 +36,9 @@ axios.request(options).then(function (response) {
                             <td> NBA </td>
                             <td>${games[i].season} </td>
                             <td>${games[i].officials} <br> </td>
-                            <td>${games[i].teams.home.name} /
+                            <td>${games[i].teams.home.name} <br>
                             ${games[i].scores.home.points} points</td>
-                            <td>${games[i].teams.visitors.name} /
+                            <td>${games[i].teams.visitors.name} <br>
                             ${games[i].scores.visitors.points} points </td>
                             </tr> 
                     </tbody>
