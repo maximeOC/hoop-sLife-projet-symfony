@@ -11,7 +11,7 @@ const options = {
 };
 
 // axios.request(options).then(function (response){
-//     console.log(response.data.response[].league);
+//     console.log(response.data);
 // }).catch(function(error){
 //     console.log(error)
 // })
@@ -33,19 +33,19 @@ axios.request(options).then(function (response) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td> NBA </td>
+                            <td>NBA</td>
                             <td>${games[i].season} </td>
                             <td>${games[i].officials} <br> </td>
                             <td>${games[i].teams.home.name} <br>
                             ${games[i].scores.home.points} points</td>
                             <td>${games[i].teams.visitors.name} <br>
                             ${games[i].scores.visitors.points} points </td>
-                            </tr> 
+                            </tr>
                     </tbody>
             </table>`
     }
     document.getElementById('games').innerHTML = output;
     console.log(response.data.response)
-}).catch(function (error) {
+}).catch(function (error){
     console.error(error);
 });

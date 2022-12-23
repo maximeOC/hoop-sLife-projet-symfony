@@ -23,11 +23,11 @@ class CartController extends AbstractController
 
         foreach ( $cart as $id => $quantity){
             $product = $productsRepository->find($id);
-            $size = $sizesRepository->findAll();
-            dump($size);
+//            $size = $sizesRepository->findAll();
+//            dump($size);
             //faire un push dans le panier []
             $dataCart[] = [
-                "size" => $size,
+//                "size" => $size,
                 "product" => $product,
                 "quantity" => $quantity
             ];

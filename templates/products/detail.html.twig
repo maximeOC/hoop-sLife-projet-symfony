@@ -3,7 +3,7 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
-{#    {{ dump(product.images) }}#}
+
     <main class="product">
         <h1>detail de {{ product.name }}</h1>
                 <div class="product-card">
@@ -14,7 +14,6 @@
                                 <p class="product-card__detail__description">{{ product.description }}</p>
                                 <p class="product-card__detail__categorie">Catégorie: {{ product.categories.name }}</p>
                                 <p class="product-card__detail__price">prix: {{ product.price}} euros </p>
-
                             <label for="pet-select">Choisissez une taille</label>
                             <select name="pets" id="pet-select">
                                 <option value="">Choisis une option</option>
@@ -22,7 +21,7 @@
                                     <option value="">{{ size.name }}</option>
                                 {% endfor %}
                             </select>
-                                <button><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a> </button>
+                                <button><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a></button>
                         </div>
                 </div>
     </main>

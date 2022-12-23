@@ -34,6 +34,9 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imagePath = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -125,6 +128,17 @@ class Products
                 $image->setProducts(null);
             }
         }
+
+        return $this;
+    }
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
 
         return $this;
     }

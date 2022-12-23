@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Entity\Products;
 use App\Form\ProductsFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,32 +15,71 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/admin/produits', name: 'admin_products_')]
 class ProductsController extends AbstractController{
 
+    public function __construct(
+        private readonly ParameterBagInterface  $parameterBag,
+        private readonly EntityManagerInterface $entityManager,
+    )
+    {
+
+    }
+
     #[Route('/', name: 'index')]
     public function index(): Response{
         return $this->render('admin/products/index.html.twig');
     }
 
-    #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response{
+    #[Route('/ajout', name: 'add', methods: ['GET','POST'])]
+    public function add(Request $request, SluggerInterface $slugger): Response{
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $productsPath = $this->parameterBag->get('products_path');
 
         $product = new Products();
         $productForm = $this->createForm(ProductsFormType::class, $product);
 
         $productForm->handleRequest($request);
 
-        if ($productForm->isSubmitted() && $productForm->isValid()){
-            $slug = $slugger->slug($product->getName());
-            $product->setSlug($slug);
+        $productImage = $productForm->get('images')->getData();
 
-            $price = $product->getPrice() * 10000;
-            $product->setPrice($price);
+        if ($productImage) {
+            //exemple de nom de fichier : chat.jpg
+            //require le nom du fichier sans l'extension => chat
+            $originalFilename = pathinfo($productImage->getClientOriginalName(), PATHINFO_FILENAME);
 
-            $entityManager->persist($product);
-            $entityManager->flush();
+            //Slug l'originalName, exemple: chat noir -> chat-noir
+            $safeFilename = $slugger->slug($originalFilename);
 
-            return $this->redirectToRoute('app_home_index');
+            // vrai nom de fichier unique, exemple chat-noir -> chat-noir-fkljfdljfdlkj.jpg
+            $newFileName = $safeFilename . '-' . uniqid() . '.' . $productImage->guessExtension();
+
+            try {
+                $productImage->move(
+                    $productsPath,
+                    $newFileName
+                );
+
+                $product->setImagePath($newFileName);
+                $this->entityManager->persist($product);
+                $this->entityManager->flush();
+
+                return $this->redirectToRoute('app_home_index');
+
+            } catch (\Exception $e) {
+                dump($e);
+            }
         }
+//        if ($productForm->isSubmitted() && $productForm->isValid()){
+//            $slug = $slugger->slug($product->getName());
+//            $product->setSlug($slug);
+//
+//            $price = $product->getPrice() * 10000;
+//            $product->setPrice($price);
+//
+//            $entityManager->persist($product);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('app_home_index');
+//        }
 
         return $this->render('admin/products/add.html.twig', [
             'productForm' => $productForm->createView()
