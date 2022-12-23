@@ -53,7 +53,7 @@ class ProductsController extends AbstractController
 
 
     #[Route('/favoris/retrait/{id}', name: 'remove_favoris')]
-    #[Entity('products', expr: 'repository.')]
+//    #[Entity('products', expr: 'repository.')]
     public function removeFavoris(Products $products, EntityManagerInterface $entityManager, ProductsRepository $productsRepository): Response{
         $products->removeFavori($this->getUser());
 
