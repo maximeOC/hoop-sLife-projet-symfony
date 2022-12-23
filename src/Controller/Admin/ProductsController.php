@@ -5,6 +5,7 @@ use App\Entity\Products;
 use App\Form\ProductsFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,13 +17,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProductsController extends AbstractController{
 
     public function __construct(
-        private readonly ParameterBagInterface  $parameterBag,
-        private readonly EntityManagerInterface $entityManager,
+        private ParameterBagInterface  $parameterBag,
+        private EntityManagerInterface $entityManager,
     )
     {
-
     }
-
     #[Route('/', name: 'index')]
     public function index(): Response{
         return $this->render('admin/products/index.html.twig');
@@ -32,35 +31,21 @@ class ProductsController extends AbstractController{
     public function add(Request $request, SluggerInterface $slugger): Response{
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $productsPath = $this->parameterBag->get('products_path');
+
 
         $product = new Products();
         $productForm = $this->createForm(ProductsFormType::class, $product);
 
         $productForm->handleRequest($request);
-
-        $productImage = $productForm->get('images')->getData();
-        if ($productImage) {
-            $originalFilename = pathinfo($productImage->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFileName = $safeFilename . '-' . uniqid() . '.' . $productImage->guessExtension();
-            try {
-                $productImage->move(
-                    $productsPath,
-                    $newFileName
-                );
-                $product->setImagePath($newFileName);
-            } catch (\Exception $e) {
-                dump($e);
-            }
-        }
         if ($productForm->isSubmitted() && $productForm->isValid()){
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
-            $price = $product->getPrice() * 10000;
+            $price = $product->getPrice() * 100;
             $product->setPrice($price);
-
+            // debut traitement image
+            $this->uploadImage($productForm, $slugger, $product);
+            // fin traitement image
             $this->entityManager->persist($product);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_home_index');
@@ -72,21 +57,25 @@ class ProductsController extends AbstractController{
     }
 
     #[Route('/edition/{id}', name: 'edit')]
-    public function edit(Products $product, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response{
+    public function edit(Products $product, Request $request, SluggerInterface $slugger): Response{
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', $product);
 
+        $productsPath = $this->parameterBag->get('products_path');
         $productForm = $this->createForm(ProductsFormType::class, $product);
 
         $productForm->handleRequest($request);
+
         if ($productForm->isSubmitted() && $productForm->isValid()){
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
             $price = $product->getPrice();
             $product->setPrice($price);
-
-            $entityManager->persist($product);
-            $entityManager->flush();
+            // debut traitement image
+            $this->uploadImage($productForm, $slugger, $product);
+            // fin traitement image
+            $this->entityManager->persist($product);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home_index');
         }
@@ -94,9 +83,54 @@ class ProductsController extends AbstractController{
             'productForm' => $productForm->createView()
         ]);
     }
+
     #[Route('/suppression/{id}', name: 'delete')]
-    public function delete(Products $products): Response{
-        $this->denyAccessUnlessGranted('PRODUCT_DELETE', $products);
-        return $this->render('admin/products/index.html.twig');
+    public function delete(Products $product): Response{
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', $product);
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
+
+        // Supprimer ancien fichier
+        $this->deleteImage($product);
+
+        return $this->redirectToRoute('admin_products_index');
+    }
+
+    private function uploadImage(FormInterface $productForm, SluggerInterface $slugger, Products $product){
+        $productsPath = $this->parameterBag->get('products_path');
+        $productImage = $productForm->get('images')->getData();
+        if ($productImage) {
+            $originalFilename = pathinfo($productImage->getClientOriginalName(), PATHINFO_FILENAME);
+            // Naming image
+            if ($product->getImagePath()) {
+                // Deleting old file
+                $this->deleteImage($product);
+            }
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFileName = $safeFilename . '-' . uniqid() . '.' . $productImage->guessExtension();
+
+            try {
+                $productImage->move(
+                    $productsPath,
+                    $newFileName
+                );
+                $product->setImagePath($newFileName);
+            } catch (\Exception $e) {
+                dump($e);
+            }
+        }
+    }
+
+    /**
+     * Deleting old unused file
+     * @param Products $product
+     * @return void
+     */
+    private function deleteImage(Products $product)
+    {
+        $pathToImage = $this->parameterBag->get('products_path') . DIRECTORY_SEPARATOR . $product->getImagePath();
+        if (file_exists($pathToImage)) {
+            unlink($pathToImage);
+        }
     }
 }

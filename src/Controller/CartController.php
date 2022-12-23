@@ -13,9 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
 {
-
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductsRepository $productsRepository, SizesRepository $sizesRepository): Response
+    public function index(SessionInterface $session, ProductsRepository $productsRepository): Response
     {
         $cart = $session->get("cart", []);
         $dataCart = [];
@@ -23,11 +22,8 @@ class CartController extends AbstractController
 
         foreach ( $cart as $id => $quantity){
             $product = $productsRepository->find($id);
-//            $size = $sizesRepository->findAll();
-//            dump($size);
             //faire un push dans le panier []
             $dataCart[] = [
-//                "size" => $size,
                 "product" => $product,
                 "quantity" => $quantity
             ];
@@ -47,6 +43,12 @@ class CartController extends AbstractController
 
         if(!empty($cart[$id])){
             $cart[$id]++;
+            /**
+             * [
+             *  16 => ["none" => 1, "idTailleXL" => 3],
+             *  19 => ["idTailleS" => 10, "idTailleXL" => 1]
+             * ]
+             */
         }else{
             $cart[$id] = 1;
         }

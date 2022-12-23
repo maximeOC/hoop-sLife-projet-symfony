@@ -20,11 +20,12 @@
                  </thead>
                  <tbody>
                      {% for data in dataCart %}
+{#                         {{ dump(data.product.slug) }}#}
                          <tr>
                              <td>{{ data.product.slug }}</td>
                              <td>{{ data.product.price }} €</td>
                              <td>{{ data.quantity }}</td>
-                             {# <td>{{ dump(data.size) }}</td> #}
+{#                              <td>{{ dump(data.size) }}</td>#}
                              <td>{{ data.quantity * data.product.price }} €</td>
                              <td>
                                  <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add"><i class="fa-solid fa-plus"></i></a> |

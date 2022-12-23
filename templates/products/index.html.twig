@@ -21,7 +21,7 @@
                         <p> prix: {{ product.price / 100 }} euros</p>
                         {% if is_granted ("ROLE_SUPER_ADMIN") %}
                             <a href="{{ path('admin_products_edit', {id: product.id}) }}">Modifier</a>
-{#                            <a href="{{ path('admin_products_delete') }}"></a>#}
+                            <a href="{{ path('admin_products_delete', {id: product.id}) }}">Supprimer</a>
                         {% endif %}
                         <div class="showproduct">
                             <a href="{{ path('products_details', {slug: product.slug}) }}">Voir le produit </a>
