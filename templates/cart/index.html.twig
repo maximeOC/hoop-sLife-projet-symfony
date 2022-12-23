@@ -3,11 +3,12 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
+    <div class="cart">
     <div class="container">
         <div class="row"><h1>Panier</h1></div>
     </div>
     {% if dataCart %}
-             <table class="table">
+             <table class="table container">
                  <thead>
                      <tr>
                          <th>Produit</th>
@@ -43,4 +44,5 @@
             <p class="cartEmpty">Votre panier est vide</p>
         {% endif %}
     </table>
+    </div>
 {% endblock %}

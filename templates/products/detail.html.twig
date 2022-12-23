@@ -7,9 +7,6 @@
     <main class="product">
         <h1>detail de {{ product.name }}</h1>
                 <div class="product-card">
-{#                    {% for image in product.images  %}#}
-{#                        <img class="product-Image" src="{{ asset('build/images/products/') ~ image.name}}" alt="{{ image.alt }}">#}
-{#                    {% endfor %}#}
                     <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}" />
                         <div class="product-card__detail">
                                 <p class="product-card__detail__description">{{ product.description }}</p>

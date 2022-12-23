@@ -1,13 +1,13 @@
 @import "./../abstracts/variables";
 
 .home-section{
-    height: 70vh;
+    height: 40vh;
     border-radius: 10px;
     h1{
         text-align: center;
     }
 
-    .categoriesProducts, .l-container{
+    .l-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 30px;
@@ -55,42 +55,60 @@
                     color: $black;
                 }
             }
-
-            &:hover &__cover {
-                transform: rotateX(7deg) translateY(-6px);
-
-                &::after {
-                    transform: translateY(0%);
-                }
-
-
-            }
-
-            // Shadows
-
-            &::before {
-                display: block;
-                content: '';
-                position: absolute;
-                top: 5%;
-                left: 5%;
-                width: 90%;
-                height: 90%;
-                background: rgba($black, 0.5);
-                box-shadow: 0 6px 12px 12px rgba($black, 0.4);
-                will-change: opacity;
-                transform-origin: top center;
-                transform: skewX(.001deg);
-                transition: transform .35s ease-in-out, opacity .5s ease-in-out;
-            }
-            &:hover::before {
-                opacity: 0.6;
-                transform: rotateX(7deg) translateY(-6px) scale(1.05);
-            }
         }
     }
 }
 
+.categories-section{
+    height: 76vh;
+    border-radius: 10px;
+    .categoriesProducts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 30px;
+        width: 100%;
+        max-width: 1200px;
+        padding: 30px;
+
+        @media screen and (max-width: 1000px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        .b-game-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding-bottom: 30%;
+            perspective: 1000px;
+
+            &__cover {
+                display: flex;
+                border-radius: 10px;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding-left: 10px;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: linear-gradient(120deg, #ffff83 0%, #9d6398 100%);
+                background-size: cover;
+                transition: transform .35s ease-in-out;
+                &:hover{
+                    transform: scale(1.03);
+                }
+                a{
+                    text-decoration: none;
+                    color: $black;
+                }
+            }
+        }
+    }
+}
 
 .l-container__cardProduct {
         display: grid;
@@ -126,6 +144,9 @@
                 transform-style: preserve-3d;
                 transform-origin: top center;
                 transition: transform .35s ease-in-out;
+                &:hover{
+                    transform: scale(1.03);
+                }
                 .product-Images{
                     width: 100%;
                     height: 400px;

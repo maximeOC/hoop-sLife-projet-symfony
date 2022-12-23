@@ -1,6 +1,12 @@
+.actionRegister{
+  display: flex;
+  flex-direction: column;
+  .bouton{
+    background-color:  $color-primary;
+    color: $color-secondary;
+    font-weight: bold;
+    width: 20%;
+  }
 
-.bouton{
-  background-color:  $color-primary;
-  color: $color-secondary;
-  font-weight: bold;
 }
+
