@@ -49,6 +49,9 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: Stock::class)]
     private Collection $stocks;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favoris')]
+    private Collection $favoris;
+
 
 
     public function __construct()
@@ -58,6 +61,7 @@ class Products
         $this->created_at = new \DateTime();
         $this->sizes = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
 
@@ -237,6 +241,30 @@ class Products
                 $stock->setProducts(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(User $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris->add($favori);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(User $favori): self
+    {
+        $this->favoris->removeElement($favori);
 
         return $this;
     }
