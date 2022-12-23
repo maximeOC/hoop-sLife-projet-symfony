@@ -1,12 +1,14 @@
 
 {% block body %}
-    {{ form_start(productForm) }}
-            {{ form_row(productForm.name) }}
-            {{ form_row(productForm.price) }}
-            {{ form_row(productForm.description) }}
-            {{ form_row(productForm.categories) }}
-            {{ form_row(productForm.slug) }}
-            {{ form_row(productForm.images) }}
-        <button type="submit"> {{ button_label | default('Ajouter')}}l'article</button>
-    {{ form_end(productForm) }}
+    <div class="container">
+        {{ form_start(productForm) }}
+        {{ form_row(productForm.name) }}
+        {{ form_row(productForm.price) }}
+        {{ form_row(productForm.description) }}
+        {{ form_row(productForm.categories) }}
+        {{ form_row(productForm.slug) }}
+        {{ form_row(productForm.images) }}
+        <button type="submit" class="btn-primary mb-5"> {{ button_label | default('Ajouter')}}l'article</button>
+        {{ form_end(productForm) }}
+    </div>
 {% endblock %}
