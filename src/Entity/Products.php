@@ -25,7 +25,7 @@ class Products
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $price;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]

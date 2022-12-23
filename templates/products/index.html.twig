@@ -6,7 +6,7 @@
     <section>
     <div class="container">
         <div class="product-header">
-            <h1> Tous les produits </h1>
+            <h1> Tous les produits de </h1>
             {% if is_granted ("ROLE_SUPER_ADMIN") %}
                 <a href="{{ path('admin_products_add') }}" class="btn btn-primary">Ajout</a>
             {% endif %}
@@ -15,9 +15,7 @@
             {% for product in products %}
                 <div class="b-game-cardProduct">
                     <div class="b-game-cardProduct__coverProduct ">
-{#                        {% for image in product.images %}#}
-                            <img class="product-images" src="{{ asset('build/images/products/') ~ product.imagePath}}">
-{#                        {% endfor %}#}
+                            <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}">
                         <br>
                         <p>{{ product.name }}</p>
                         <p> prix: {{ product.price / 100 }} euros</p>

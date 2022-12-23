@@ -28,7 +28,7 @@ class ProductsController extends AbstractController{
         return $this->render('admin/products/index.html.twig');
     }
 
-    #[Route('/ajout', name: 'add', methods: ['GET','POST'])]
+    #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request, SluggerInterface $slugger): Response{
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -40,46 +40,31 @@ class ProductsController extends AbstractController{
         $productForm->handleRequest($request);
 
         $productImage = $productForm->get('images')->getData();
-
         if ($productImage) {
-            //exemple de nom de fichier : chat.jpg
-            //require le nom du fichier sans l'extension => chat
             $originalFilename = pathinfo($productImage->getClientOriginalName(), PATHINFO_FILENAME);
-
-            //Slug l'originalName, exemple: chat noir -> chat-noir
             $safeFilename = $slugger->slug($originalFilename);
-
-            // vrai nom de fichier unique, exemple chat-noir -> chat-noir-fkljfdljfdlkj.jpg
             $newFileName = $safeFilename . '-' . uniqid() . '.' . $productImage->guessExtension();
-
             try {
                 $productImage->move(
                     $productsPath,
                     $newFileName
                 );
-
                 $product->setImagePath($newFileName);
-                $this->entityManager->persist($product);
-                $this->entityManager->flush();
-
-                return $this->redirectToRoute('app_home_index');
-
             } catch (\Exception $e) {
                 dump($e);
             }
         }
-//        if ($productForm->isSubmitted() && $productForm->isValid()){
-//            $slug = $slugger->slug($product->getName());
-//            $product->setSlug($slug);
-//
-//            $price = $product->getPrice() * 10000;
-//            $product->setPrice($price);
-//
-//            $entityManager->persist($product);
-//            $entityManager->flush();
-//
-//            return $this->redirectToRoute('app_home_index');
-//        }
+        if ($productForm->isSubmitted() && $productForm->isValid()){
+            $slug = $slugger->slug($product->getName());
+            $product->setSlug($slug);
+
+            $price = $product->getPrice() * 10000;
+            $product->setPrice($price);
+
+            $this->entityManager->persist($product);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_home_index');
+        }
 
         return $this->render('admin/products/add.html.twig', [
             'productForm' => $productForm->createView()
@@ -97,7 +82,7 @@ class ProductsController extends AbstractController{
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
-            $price = $product->getPrice() * 100;
+            $price = $product->getPrice();
             $product->setPrice($price);
 
             $entityManager->persist($product);
