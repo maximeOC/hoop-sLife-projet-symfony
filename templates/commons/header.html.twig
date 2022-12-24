@@ -22,7 +22,10 @@
                         {% if app.user %}
                             <div class="like-count">
                                 {% for fav in favorite %}
-                                    {{ fav.favoris.count }}
+                                     {% if fav.favoris.count >= 1 %}
+                                        {{ fav.favoris.count }}
+                                     {% else %}
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                             {% endif %}
