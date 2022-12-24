@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Entity\User;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -14,10 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class AllProductsController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProductsRepository $productsRepository): Response
+    public function index(ProductsRepository $productsRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         return $this->render('all_products/index.html.twig', [
             'allProducts' => $productsRepository->findAll(),
+            'favorite' => $favoriteproduct
         ]);
     }
     #[Route('/favoris/ajout/{id}', name: 'add_favoris')]

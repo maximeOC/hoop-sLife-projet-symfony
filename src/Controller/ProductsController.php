@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\Images;
 use App\Entity\Products;
+use App\Entity\User;
 use App\Repository\CategoriesRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManager;
@@ -23,21 +24,27 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class ProductsController extends AbstractController
 {
     #[Route('/categorie/{id}', name: 'categorie_id')]
-    public function index(Request $request, ProductsRepository $productsRepository): Response
+    public function index(Request $request, ProductsRepository $productsRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         $products = $productsRepository->findBy(['categories' => $request->get('id')]);
         return $this->render('products/index.html.twig', [
             'products' => $products,
+            'favorite' => $favoriteproduct
         ]);
     }
 
     #[Route('/{slug}', name: 'details')]
-    public function details(ProductsRepository $productsRepository, Request $request): Response
+    public function details(ProductsRepository $productsRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         $productId = $productsRepository->findOneBy(['slug' => $request->get('slug')]);
         $product = $productsRepository->find($productId->getId());
         return $this->render('products/detail.html.twig', [
             'product' => $product,
+            'favorite' => $favoriteproduct
         ]);
     }
 

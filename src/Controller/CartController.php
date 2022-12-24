@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Entity\User;
 use App\Repository\ProductsRepository;
 use App\Repository\SizesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -14,8 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductsRepository $productsRepository): Response
+    public function index(SessionInterface $session, ProductsRepository $productsRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
@@ -31,7 +35,8 @@ class CartController extends AbstractController
         }
         return $this->render('cart/index.html.twig', [
             'dataCart' => $dataCart,
-            'total' => $total
+            'total' => $total,
+            'favorite' => $favoriteproduct
         ]);
     }
 

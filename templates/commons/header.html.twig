@@ -17,6 +17,19 @@
                                 {% else %}
                             <li><a class="nav-a" href="{{ path('app_login') }}"><i class="fa-solid fa-cart-shopping"></i></a></li>
                         {% endif %}
+
+                    <div class="like">
+                        {% if app.user %}
+                            <div class="like-count">
+                                {% for fav in favorite %}
+                                    {{ fav.favoris.count }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        <li><a href="{{ path('app_favorites_articles_index') }}"><i class="fa-regular fa-heart"></i></a></li>
+                    </div>
+
+
                 </ul>
             </div>
         <img class="menu-hamburger" src="{{ asset('build/images/ballon-de-basket.png') }}" alt="menu burger pour ecran de 1000px ">

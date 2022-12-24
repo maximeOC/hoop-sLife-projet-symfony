@@ -18,6 +18,21 @@ header{
     .nav-links{
       ul{
         display: flex;
+        .like{
+          display: flex;
+          height: 30px;
+          position: relative;
+          .like-count{
+            position: absolute;
+            text-align: center;
+            width: 20px;
+            font-size: 11px;
+            top: -5px;
+            right: 12px;
+            border-radius: 25px;
+            background-color: #0d6efd;
+          }
+        }
         li{
           margin: 0 25px;
           &:active{
