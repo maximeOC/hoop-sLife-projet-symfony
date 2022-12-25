@@ -23,7 +23,7 @@ body{
         .number {
           font-size: 1em;
           font-weight: bolder;
-          color: black;
+          color: white;
         }
         p{
           font-size: 1em;
@@ -32,6 +32,7 @@ body{
         }
       }
     }
+
   }
 
   @media screen and (max-width: 700px) {
@@ -39,16 +40,16 @@ body{
       display: none;
     }
   }
-
 }
 
 .articles{
   height: 100vh;
-      .games{
-        width: 100%;
-      }
+  margin-bottom: 100px;
+  .games{
+    width: 100%;
+    margin: 5px;
+  }
 }
-
 
 
 

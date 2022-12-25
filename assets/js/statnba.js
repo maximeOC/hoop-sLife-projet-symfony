@@ -10,12 +10,6 @@ const options = {
     }
 };
 
-// axios.request(options).then(function (response){
-//     console.log(response.data);
-// }).catch(function(error){
-//     console.log(error)
-// })
-
 axios.request(options).then(function (response) {
     let games = response.data.response;
     let output = '';

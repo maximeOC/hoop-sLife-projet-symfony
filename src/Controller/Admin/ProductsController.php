@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 use App\Entity\Products;
+use App\Entity\User;
 use App\Form\ProductsFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -30,9 +31,6 @@ class ProductsController extends AbstractController{
     #[Route('/ajout', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request, SluggerInterface $slugger): Response{
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-
-
         $product = new Products();
         $productForm = $this->createForm(ProductsFormType::class, $product);
 
@@ -50,9 +48,12 @@ class ProductsController extends AbstractController{
             $this->entityManager->flush();
             return $this->redirectToRoute('app_home_index');
         }
+        $user = $this->getUser();
+        $favoriteproduct = $this->entityManager->getRepository(User::class)->findBy(['id' => $user]);
 
         return $this->render('admin/products/add.html.twig', [
-            'productForm' => $productForm->createView()
+            'productForm' => $productForm->createView(),
+            'favorite' => $favoriteproduct
         ]);
     }
 
@@ -79,8 +80,11 @@ class ProductsController extends AbstractController{
 
             return $this->redirectToRoute('app_home_index');
         }
+        $user = $this->getUser();
+        $favoriteproduct = $this->entityManager->getRepository(User::class)->findBy(['id' => $user]);
         return $this->render('admin/products/edit.html.twig', [
-            'productForm' => $productForm->createView()
+            'productForm' => $productForm->createView(),
+            'favorite' => $favoriteproduct
         ]);
     }
 
