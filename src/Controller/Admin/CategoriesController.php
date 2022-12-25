@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('admin/categories', name: 'admin_categories_')]
 class CategoriesController extends AbstractController{
@@ -24,13 +25,17 @@ class CategoriesController extends AbstractController{
      * @throws \Doctrine\ORM\Exception\ORMException
      */
     #[Route('/ajouter', name: 'add')]
-    public function index(Request $request){
+    public function index(Request $request, SluggerInterface $slugger){
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $categories = new Categories();
         $categoriesForm = $this->createForm(CategoriesFormType::class, $categories);
 
         $categoriesForm->handleRequest($request);
         if($categoriesForm->isSubmitted() && $categoriesForm->isValid()){
+
+           $slug = $slugger->slug($categories->getName());
+           $categories->setSlug($slug);
+
             $this->entityManager->persist($categories);
             $this->entityManager->flush();
             return $this->redirectToRoute('app_home_index');

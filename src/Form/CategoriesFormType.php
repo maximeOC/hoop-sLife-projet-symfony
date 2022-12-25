@@ -20,6 +20,9 @@ class CategoriesFormType extends AbstractType
         $builder
             ->add('name', options: [
                 'label' => 'Nom de la catégorie'
+            ])
+            ->add('mainCategories', options: [
+                'label' => 'choisir la catégorie principal'
             ]);
     }
 

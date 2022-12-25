@@ -29,9 +29,6 @@ class ProductsFormType extends AbstractType
             ->add('categories')
             ->add('images', FileType::class, [
                 'mapped' => false
-            ])
-            ->add('slug', options: [
-                'label' => 'slug'
             ]);
 //            ->add('size', EntityType::class, [
 //                'class' => Sizes::class,
