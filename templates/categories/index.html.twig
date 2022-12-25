@@ -5,7 +5,7 @@
 {% block body %}
         <section class="categories-section ">
                 {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                        <a href="{{ path('admin_categories_add') }}" class="bouton-add-categorie"><i class="fa-solid fa-plus"></i> une catégorie</a>
+                        <a href="{{ path('admin_categories_add') }}" class="bouton-add-categorie mx-5"><i class="fa-solid fa-plus"></i> une catégorie</a>
                 {% endif %}
                 <div class="categoriesProducts">
 

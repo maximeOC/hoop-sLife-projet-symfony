@@ -8,7 +8,7 @@
         <div class="product-header">
             <h1> Tous les produits de </h1>
             {% if is_granted ("ROLE_SUPER_ADMIN") %}
-                <a href="{{ path('admin_products_add') }}" class="btn btn-primary">Ajout</a>
+                <a href="{{ path('admin_products_add') }}" class="btn ajout-produits">Ajout</a>
             {% endif %}
         </div>
         <div class="l-container__cardProduct">

@@ -48,6 +48,13 @@ body{
   .games{
     width: 100%;
     margin: 5px;
+    color: white;
+    th{
+      color: $white;
+    }
+    td{
+      color: white;
+    }
   }
 }
 
