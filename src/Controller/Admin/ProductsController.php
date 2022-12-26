@@ -96,7 +96,6 @@ class ProductsController extends AbstractController{
 
         // Supprimer ancien fichier
         $this->deleteImage($product);
-
         return $this->redirectToRoute('admin_products_index');
     }
 

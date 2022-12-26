@@ -44,7 +44,7 @@ class CategoriesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.mainCategories = :mainCategories')
             ->setParameter('mainCategories', $categorie)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()
             ;

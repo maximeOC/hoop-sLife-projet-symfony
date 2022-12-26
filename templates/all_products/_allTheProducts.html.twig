@@ -1,0 +1,46 @@
+
+<div class="container">
+    <div class="product-header">
+        <h1> Tous les produits </h1>
+        {% if is_granted ("ROLE_SUPER_ADMIN") %}
+            <a href="{{ path('admin_products_add') }}" class="btn btn-primary">Ajout</a>
+        {% endif %}
+    </div>
+    <div class="l-container__cardProduct">
+        {% for all in allProducts %}
+            <div class="b-game-cardProduct">
+                <div class="b-game-cardProduct__coverProduct ">
+                    <img class="product-Images" src="{{ asset('build/images/products/') ~ all.imagePath}}" />
+                    <br>
+                    <p>{{ all.name }}</p>
+                    <p> prix: {{ all.price / 100 }} euros</p>
+                    {% if is_granted ("ROLE_SUPER_ADMIN") %}
+                        <a href="{{ path('admin_products_edit', {id: all.id}) }}">Modifier</a>
+                        <a href="{{ path('admin_products_delete', {id: all.id}) }}">Supprimer</a>
+                    {% endif %}
+                    {% if is_granted ("ROLE_USER") %}
+                        {% for fav in all.favoris %}
+                            {% if fav.id == app.user.id %}
+                                <a href="{{ path('app_all_products_remove_favoris', {id: all.id}) }}"> <i class="fa-solid fa-heart"></i> </a>
+                            {% else %}
+                                <a href="{{ path('app_all_products_add_favoris', {id: all.id}) }}"> <i class="fa-regular fa-heart"></i> </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('products_add_favoris', {id: all.id}) }}"><i class="fa-regular fa-heart"></i></a>
+                        {% endfor %}
+                    {% else %}
+                        <a href="{{ path('app_login') }}"><i class="fa-regular fa-heart"></i></a>
+                    {% endif %}
+                    <div class="showproduct">
+                        <a href="{{ path('products_details', {slug: all.slug}) }}">Voir le produit </a>
+                        {% if app.user %}
+                            <a href="{{ path('cart_add', {id: all.id}) }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                        {% else %}
+                            <a href="{{ path('app_register') }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
