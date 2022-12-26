@@ -1,5 +1,9 @@
-.link-login{
-  display: flex;
-  flex-direction: column;
-  width: 30%;
+.login{
+  height: 60vh;
+  .link-login{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
 }
+
