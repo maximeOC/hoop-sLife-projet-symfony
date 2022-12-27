@@ -29,7 +29,10 @@ class ProductsFormType extends AbstractType
             ->add('categories')
             ->add('images', FileType::class, [
                 'mapped' => false
-            ]);
+            ])
+            ->add('alt', options: [
+                'label' => 'la balise alt'
+                ]);
 //            ->add('size', EntityType::class, [
 //                'class' => Sizes::class,
 //                'query_builder' => function (SizesRepository $r) {

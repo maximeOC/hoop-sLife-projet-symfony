@@ -15,7 +15,7 @@
             {% for product in products %}
                 <div class="b-game-cardProduct">
                     <div class="b-game-cardProduct__coverProduct ">
-                            <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}">
+                            <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}" alt="{{ product.alt }}">
                         <br>
                         <p>{{ product.name }}</p>
                         <p> prix: {{ product.price / 100 }} euros</p>

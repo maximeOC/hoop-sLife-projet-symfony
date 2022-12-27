@@ -52,6 +52,9 @@ class Products
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favoris')]
     private Collection $favoris;
 
+    #[ORM\Column(length: 100)]
+    private ?string $alt = null;
+
 
 
     public function __construct()
@@ -265,6 +268,18 @@ class Products
     public function removeFavori(User $favori): self
     {
         $this->favoris->removeElement($favori);
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
 
         return $this;
     }

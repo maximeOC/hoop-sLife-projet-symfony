@@ -96,7 +96,11 @@ class ProductsController extends AbstractController{
 
         // Supprimer ancien fichier
         $this->deleteImage($product);
-        return $this->redirectToRoute('admin_products_index');
+        $user = $this->getUser();
+        $favoriteproduct = $this->entityManager->getRepository(User::class)->findBy(['id' => $user]);
+        return $this->redirectToRoute('admin_products_index', [
+            'favorite' => $favoriteproduct
+        ]);
     }
 
     private function uploadImage(FormInterface $productForm, SluggerInterface $slugger, Products $product){
