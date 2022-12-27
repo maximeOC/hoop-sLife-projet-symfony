@@ -20,30 +20,36 @@ use Symfony\Component\Routing\Annotation\Route;
 #[ParamConverter ('Products')]
 class AllProductsController extends AbstractController
 {
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
     #[Route('/', name: 'index')]
     #[ParamConverter('')]
     public function index(ProductsRepository $productsRepository, EntityManagerInterface $entityManager, CategoriesRepository $categoriesRepository, Request $request): Response
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
+
         $filters = $request->get("categories");
-        $allProducts = $productsRepository->findAll();
 
         $productByCategorie = $productsRepository->getCategories($filters);
 
+        $allProducts = $productsRepository->getTotalProducts($filters);
+//        dd($allProducts);
         if($request->get('ajax')){
             return new JsonResponse([
-                'content' => $this->render('all_products/_allTheProducts.html.twig', [
+                'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
                     'productByCategorie' => $productByCategorie,
-//                    'allProducts' => $allProducts,
-//                    'allCategories' => $categoriesRepository->findAll(),
+                    'allProducts' => $allProducts,
                     'favorite' => $favoriteproduct
                 ])
             ]);
         }
 
         return $this->render('all_products/index.html.twig', [
-            'allProducts' => $allProducts,
+//            'allProducts' => $allProducts,
+            'productByCategorie' => $productByCategorie,
             'allCategories' => $categoriesRepository->findAll(),
             'favorite' => $favoriteproduct
         ]);

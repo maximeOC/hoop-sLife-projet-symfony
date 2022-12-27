@@ -15,10 +15,8 @@
         <div class="products" id="content">
             {% include('all_products/_allTheProducts.html.twig') %}
         </div>
-
-    {% block javascripts %}
-        <script src="{{ asset('js/filters.js') }}"> </script>
-    {% endblock %}
 {% endblock %}
 
-
+ {% block javascripts %}
+     <script src="{{ asset('js/filters.js') }}"> </script>
+ {% endblock %}

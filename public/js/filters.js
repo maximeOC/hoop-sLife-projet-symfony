@@ -6,25 +6,25 @@ window.onload = () =>{
 
             const Form = new FormData(FiltersForm);
 
-            const Param = new URLSearchParams();
+            const Params = new URLSearchParams();
 
             Form.forEach((value, key) => {
-                Param.append(key, value);
-                console.log(Param.toString())
+                Params.append(key, value);
             })
 
             const Url = new URL(window.location.href)
-            console.log(Url)
+            // console.log(Url)
 
-            fetch(Url.pathname + "?" + Param.toString() + "&ajax=1", {
+            fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
                 headers: {
                     "X-Requested-With": "XMLHttpRequest"
                 }
-            }).then(response => {
-                console.log(response)
-                }
+            }).then(response =>
+                    response.json()
             ).then(data => {
-                console.log(data)
+                const content = document.querySelector("#content");
+                content.innerHTML = data.content
+                // console.log(data.content)
             }).catch(e =>alert(e))
         })
     })

@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,7 +41,7 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
 
-    public function getCategories($filters): array
+    public function getCategories($filters = null): array
     {
         $query = $this->createQueryBuilder('p');
 
@@ -49,6 +51,21 @@ class ProductsRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalProducts($filters = null ){
+        $query = $this->createQueryBuilder('p')
+            ->select('count(p)');
+
+        if($filters != null){
+            $query->andWhere('p.categories IN(:cats)')
+                ->setParameter(':cats', array_values($filters));
+        }
+        return $query->getQuery()->getSingleScalarResult();
     }
 
 
