@@ -40,9 +40,11 @@
                          <td><a href="{{ path('cart_delete_all')}}" class="cart-delete"><i class="fa-solid fa-trash"></i></a></td>
                      </tr>
                  </tfoot>
+                 <button type="submit" class="btn btn-primary">Commander</button>
         {% else %}
             <p class="cartEmpty">Votre panier est vide</p>
         {% endif %}
     </table>
+
     </div>
 {% endblock %}
