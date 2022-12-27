@@ -3,9 +3,10 @@
 {% block title %}Tous les produits du site{% endblock %}
 
 {% block body %}
+    <main class="all-products">
         <div class="filter-categorie">
-                <p>filtres</p>
-            <form id="filters">
+            <p>filtres</p>
+            <form id="filters" class="filter-categorie_form">
                 {% for categorie in allCategories %}
                     <input type="checkbox" name="categories[]" id="cat{{ categorie.id }}" value="{{ categorie.id }}">
                     <label for="cat{{ categorie.id }}">{{ categorie.name }}</label>
@@ -14,12 +15,13 @@
         </div>
         <div class="products" id="content">
             {% include('all_products/_allTheProducts.html.twig') %}
+            <div class="d-flex justify-content-center">
+                {% do produitPaginated.setPageRange(2) %}
+                {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}
+            </div>
         </div>
+    </main>
 
-         <div class="d-flex justify-content-center">
-             {% do produitPaginated.setPageRange(2) %}
-             {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}
-         </div>
 {% endblock %}
 
  {% block javascripts %}
