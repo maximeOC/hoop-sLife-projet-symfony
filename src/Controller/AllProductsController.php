@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\CategoriesRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,13 @@ class AllProductsController extends AbstractController
      */
     #[Route('/', name: 'index')]
     #[ParamConverter('')]
-    public function index(ProductsRepository $productsRepository, EntityManagerInterface $entityManager, CategoriesRepository $categoriesRepository, Request $request): Response
+    public function index(
+        ProductsRepository $productsRepository,
+        EntityManagerInterface $entityManager,
+        CategoriesRepository $categoriesRepository,
+        Request $request,
+        PaginatorInterface $paginator,
+    ): Response
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
@@ -35,12 +42,18 @@ class AllProductsController extends AbstractController
 
         $productByCategorie = $productsRepository->getCategories($filters);
 
+        $produitPaginated = $paginator->paginate(
+            $productByCategorie,
+            $request->query->getInt('page', 1),
+            3
+        );
+
         $allProducts = $productsRepository->getTotalProducts($filters);
-//        dd($allProducts);
+
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
-                    'productByCategorie' => $productByCategorie,
+                    'produitPaginated' => $produitPaginated,
                     'allProducts' => $allProducts,
                     'favorite' => $favoriteproduct
                 ])
@@ -49,7 +62,7 @@ class AllProductsController extends AbstractController
 
         return $this->render('all_products/index.html.twig', [
 //            'allProducts' => $allProducts,
-            'productByCategorie' => $productByCategorie,
+            'produitPaginated' => $produitPaginated,
             'allCategories' => $categoriesRepository->findAll(),
             'favorite' => $favoriteproduct
         ]);
