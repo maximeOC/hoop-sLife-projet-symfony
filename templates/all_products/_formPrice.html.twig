@@ -1,0 +1,13 @@
+{{ form_start(formPrice) }}
+
+<h4> Prix</h4>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(formPrice.min) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(formPrice.max) }}
+    </div>
+</div>
+<button type="submit" class="w-100">Filtrer le prix </button>
+{{ form_end(formPrice) }}

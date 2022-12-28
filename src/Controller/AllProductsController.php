@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\PriceData;
 use App\Entity\Categories;
 use App\Entity\Products;
 use App\Entity\User;
+use App\Form\PriceDataType;
 use App\Repository\CategoriesRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,12 +44,17 @@ class AllProductsController extends AbstractController
 
         $productByCategorie = $productsRepository->getCategories($filters);
 
+        //formulaire pour filtrer par les prix
+        $data = new PriceData();
+        $form = $this->createForm(PriceDataType::class, $data);
+        $form->handleRequest($request);
+        $productsbyPrice = $productsRepository->findSearch($data);
+
         $produitPaginated = $paginator->paginate(
-            $productByCategorie,
+            $productsbyPrice,
             $request->query->getInt('page', 1),
             3
         );
-
         $allProducts = $productsRepository->getTotalProducts($filters);
 
         if($request->get('ajax')){
@@ -55,15 +62,18 @@ class AllProductsController extends AbstractController
                 'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
                     'produitPaginated' => $produitPaginated,
                     'allProducts' => $allProducts,
+                    'productsByPrice' => $productsbyPrice,
                     'favorite' => $favoriteproduct
                 ])
             ]);
         }
 
         return $this->render('all_products/index.html.twig', [
-//            'allProducts' => $allProducts,
+            'allProducts' => $allProducts,
             'produitPaginated' => $produitPaginated,
             'allCategories' => $categoriesRepository->findAll(),
+            'productsByPrice' => $productsbyPrice,
+            'formPrice' => $form->createView(),
             'favorite' => $favoriteproduct
         ]);
     }

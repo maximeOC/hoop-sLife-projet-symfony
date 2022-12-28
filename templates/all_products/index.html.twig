@@ -12,10 +12,11 @@
                     <label for="cat{{ categorie.id }}">{{ categorie.name }}</label>
                 {% endfor %}
             </form>
+               {% include 'all_products/_formPrice.html.twig' %}
         </div>
         <div class="products" id="content">
             {% include('all_products/_allTheProducts.html.twig') %}
-            <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center">
                 {% do produitPaginated.setPageRange(2) %}
                 {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}
             </div>

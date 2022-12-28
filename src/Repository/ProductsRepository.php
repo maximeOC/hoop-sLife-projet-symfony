@@ -2,11 +2,14 @@
 
 namespace App\Repository;
 
+use App\Data\PriceData;
 use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Products>
@@ -18,9 +21,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductsRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+
+    private $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Products::class);
+        $this->paginator = $paginator;
     }
 
     public function save(Products $entity, bool $flush = false): void
@@ -68,14 +76,40 @@ class ProductsRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Récupère les produits en lien avec une recherche
+     * @return PaginationInterface
+     */
+    public function findSearch(PriceData $priceData): array
+    {
 
-//    public function findOneBySomeField($value): ?Products
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $query = $this
+            ->createQueryBuilder('p');
+//            ->select('c', 'p')
+//            ->join('p.categories', 'c');
+
+        if (!empty($priceData->min)) {
+            $query = $query
+                ->andWhere('p.price >= :min')
+                ->setParameter('min', $priceData->min);
+        }
+
+        if (!empty($priceData->max)) {
+            $query = $query
+                ->andWhere('p.price <= :max')
+                ->setParameter('max', $priceData->max);
+        }
+        return $query->getQuery()->getResult();
+//        return $this->paginator->paginate(
+//            $query,
+//            1,
+//            1
+//        );
+
+    }
+
+    private function getSearchQuery(SearchData $search, $ignorePrice = false): QueryBuilder
+    {
+    }
+
 }
