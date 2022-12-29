@@ -22,9 +22,9 @@
                      {% for data in dataCart %}
                          <tr>
                              <td>{{ data.product.slug }}</td>
-                             <td>{{ data.product.price / 100 }} €</td>
+                             <td>{{ data.product.price }} €</td>
                              <td>{{ data.quantity }}</td>
-                             <td>{{ data.quantity * (data.product.price / 100) }} €</td>
+                             <td>{{ data.quantity * (data.product.price ) }} €</td>
                              <td>
                                  <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add"><i class="fa-solid fa-plus"></i></a> |
                                  <a href="{{ path('cart_remove', {id: data.product.id}) }}" class="cart-delete"><i class="fa-solid fa-minus"></i></a> |
@@ -36,7 +36,7 @@
                  <tfoot>
                      <tr>
                          <td colspan="3">Total</td>
-                         <td>{{ total / 100 }} € </td>
+                         <td>{{ total}} € </td>
                          <td><a href="{{ path('cart_delete_all')}}" class="cart-delete"><i class="fa-solid fa-trash"></i></a></td>
                      </tr>
                  </tfoot>
