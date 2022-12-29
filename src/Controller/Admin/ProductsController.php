@@ -39,7 +39,7 @@ class ProductsController extends AbstractController{
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
 
-            $price = $product->getPrice() * 100;
+            $price = $product->getPrice();
             $product->setPrice($price);
             // debut traitement image
             $this->uploadImage($productForm, $slugger, $product);

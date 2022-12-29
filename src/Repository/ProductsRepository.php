@@ -49,7 +49,7 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
 
-    public function getCategories($filters = null): array
+    public function getCategoriesAndPrice($filters = null, PriceData $priceData): array
     {
         $query = $this->createQueryBuilder('p');
 
@@ -58,6 +58,17 @@ class ProductsRepository extends ServiceEntityRepository
                 ->setParameter(':cats', array_values($filters));
         }
 
+        if (!empty($priceData->min)) {
+            $query = $query
+                ->andWhere('p.price >= :min')
+                ->setParameter('min', $priceData->min);
+        }
+
+        if (!empty($priceData->max)) {
+            $query = $query
+                ->andWhere('p.price <= :max')
+                ->setParameter('max', $priceData->max );
+        }
         return $query->getQuery()->getResult();
     }
 
@@ -85,8 +96,7 @@ class ProductsRepository extends ServiceEntityRepository
 
         $query = $this
             ->createQueryBuilder('p');
-//            ->select('c', 'p')
-//            ->join('p.categories', 'c');
+
 
         if (!empty($priceData->min)) {
             $query = $query
@@ -97,15 +107,15 @@ class ProductsRepository extends ServiceEntityRepository
         if (!empty($priceData->max)) {
             $query = $query
                 ->andWhere('p.price <= :max')
-                ->setParameter('max', $priceData->max);
+                ->setParameter('max', $priceData->max );
         }
-        return $query->getQuery()->getResult();
+//        return $query->getQuery()->getResult();
 //        return $this->paginator->paginate(
 //            $query,
 //            1,
 //            1
 //        );
-
+        return $query->getQuery()->getResult();
     }
 
     private function getSearchQuery(SearchData $search, $ignorePrice = false): QueryBuilder

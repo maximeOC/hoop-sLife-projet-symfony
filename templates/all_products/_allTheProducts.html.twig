@@ -7,13 +7,13 @@
         {% endif %}
     </div>
     <div class="l-container__cardProduct">
-        {% for all in produitPaginated %}
+        {% for all in productByCategorie %}
             <div class="b-game-cardProduct">
                 <div class="b-game-cardProduct__coverProduct ">
                     <img class="product-Images" src="{{ asset('build/images/products/') ~ all.imagePath}}" />
                     <br>
                     <p>{{ all.name }}</p>
-                    <p> prix: {{ all.price / 100 }} euros</p>
+                    <p> prix: {{ all.price }} euros</p>
                     {% if is_granted ("ROLE_SUPER_ADMIN") %}
                         <a href="{{ path('admin_products_edit', {id: all.id}) }}">Modifier</a>
                         <a href="{{ path('admin_products_delete', {id: all.id}) }}">Supprimer</a>

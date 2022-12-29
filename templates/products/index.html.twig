@@ -18,7 +18,7 @@
                             <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}" alt="{{ product.alt }}">
                         <br>
                         <p>{{ product.name }}</p>
-                        <p> prix: {{ product.price / 100 }} euros</p>
+                        <p> prix: {{ product.price}} euros</p>
                         {% if is_granted ("ROLE_SUPER_ADMIN") %}
                             <a href="{{ path('admin_products_edit', {id: product.id}) }}">Modifier</a>
                             <a href="{{ path('admin_products_delete', {id: product.id}) }}">Supprimer</a>

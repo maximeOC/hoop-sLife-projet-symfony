@@ -40,29 +40,29 @@ class AllProductsController extends AbstractController
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
 
-        $filters = $request->get("categories");
-
-        $productByCategorie = $productsRepository->getCategories($filters);
-
         //formulaire pour filtrer par les prix
         $data = new PriceData();
         $form = $this->createForm(PriceDataType::class, $data);
         $form->handleRequest($request);
-        $productsbyPrice = $productsRepository->findSearch($data);
+        $filters = $request->get("categories");
 
-        $produitPaginated = $paginator->paginate(
-            $productsbyPrice,
-            $request->query->getInt('page', 1),
-            3
-        );
+        $productByCategorie = $productsRepository->getCategoriesAndPrice($filters, $data);
+
+//        $productsbyPrice = $productsRepository->findSearch($data);
+
+//        $produitPaginated = $paginator->paginate(
+//            $productByCategorie,
+//            $request->query->getInt('page', 1),
+//            3
+//        );
         $allProducts = $productsRepository->getTotalProducts($filters);
 
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
-                    'produitPaginated' => $produitPaginated,
+                    'productByCategorie' => $productByCategorie,
                     'allProducts' => $allProducts,
-                    'productsByPrice' => $productsbyPrice,
+//                    'productsByPrice' => $productsbyPrice,
                     'favorite' => $favoriteproduct
                 ])
             ]);
@@ -70,9 +70,9 @@ class AllProductsController extends AbstractController
 
         return $this->render('all_products/index.html.twig', [
             'allProducts' => $allProducts,
-            'produitPaginated' => $produitPaginated,
+            'productByCategorie' => $productByCategorie,
             'allCategories' => $categoriesRepository->findAll(),
-            'productsByPrice' => $productsbyPrice,
+//            'productsByPrice' => $productsbyPrice,
             'formPrice' => $form->createView(),
             'favorite' => $favoriteproduct
         ]);

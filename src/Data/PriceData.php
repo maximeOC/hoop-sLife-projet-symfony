@@ -2,6 +2,8 @@
 
 namespace App\Data;
 
+use App\Entity\Categories;
+
 class PriceData {
     /**
      * @var null|integer
@@ -17,4 +19,5 @@ class PriceData {
      * @var mixed|int
      */
     public mixed $page = 1;
+
 }

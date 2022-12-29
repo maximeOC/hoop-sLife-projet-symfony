@@ -16,10 +16,10 @@
         </div>
         <div class="products" id="content">
             {% include('all_products/_allTheProducts.html.twig') %}
-              <div class="d-flex justify-content-center">
-                {% do produitPaginated.setPageRange(2) %}
-                {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}
-            </div>
+{#              <div class="d-flex justify-content-center">#}
+{#                {% do produitPaginated.setPageRange(2) %}#}
+{#                {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}#}
+{#            </div>#}
         </div>
     </main>
 
