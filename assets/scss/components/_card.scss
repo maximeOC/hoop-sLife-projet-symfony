@@ -133,6 +133,14 @@
         @media screen and (max-width: 760px) {
             grid-template-columns: repeat(2, 1fr);
         }
+    .productFilterNotExist{
+        width: 80vw;
+        height: 50vh;
+        //background-color: blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
         .b-game-cardProduct {
             position: relative;

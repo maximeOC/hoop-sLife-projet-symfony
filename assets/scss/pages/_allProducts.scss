@@ -6,6 +6,9 @@
     align-items: center;
     width: 20%;
     position: sticky;
+    .filter-button{
+      border-radius: 10px;
+    }
     &_form{
       display: flex;
       flex-direction: column;

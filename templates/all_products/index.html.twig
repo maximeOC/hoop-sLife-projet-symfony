@@ -3,26 +3,21 @@
 {% block title %}Tous les produits du site{% endblock %}
 
 {% block body %}
-    <main class="all-products">
-        <div class="filter-categorie">
+    <main class="all-products js-filter">
+        <div class="filter-categorie js-filter-form">
             <p>filtres</p>
             <form id="filters" class="filter-categorie_form">
                 {% for categorie in allCategories %}
                     <input type="checkbox" name="categories[]" id="cat{{ categorie.id }}" value="{{ categorie.id }}">
                     <label for="cat{{ categorie.id }}">{{ categorie.name }}</label>
                 {% endfor %}
+                {% include 'all_products/_formPrice.html.twig' %}
             </form>
-               {% include 'all_products/_formPrice.html.twig' %}
         </div>
-        <div class="products" id="content">
+        <div class="products js-filter-content" id="content" >
             {% include('all_products/_allTheProducts.html.twig') %}
-{#              <div class="d-flex justify-content-center">#}
-{#                {% do produitPaginated.setPageRange(2) %}#}
-{#                {{ knp_pagination_render(produitPaginated, 'commons/pagination.html.twig') }}#}
-{#            </div>#}
         </div>
     </main>
-
 {% endblock %}
 
  {% block javascripts %}

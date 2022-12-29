@@ -7,7 +7,8 @@
         {% endif %}
     </div>
     <div class="l-container__cardProduct">
-        {% for all in productByCategorie %}
+        {% if productFilter %}
+        {% for all in productFilter %}
             <div class="b-game-cardProduct">
                 <div class="b-game-cardProduct__coverProduct ">
                     <img class="product-Images" src="{{ asset('build/images/products/') ~ all.imagePath}}" />
@@ -42,5 +43,10 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+            <div class="productFilterNotExist">
+                <p>Aucun resultat sur votre recherche</p>
+            </div>
+        {% endif %}
     </div>
 </div>

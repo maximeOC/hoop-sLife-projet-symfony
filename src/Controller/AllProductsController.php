@@ -46,7 +46,7 @@ class AllProductsController extends AbstractController
         $form->handleRequest($request);
         $filters = $request->get("categories");
 
-        $productByCategorie = $productsRepository->getCategoriesAndPrice($filters, $data);
+        $productFilter = $productsRepository->getCategoriesAndPrice($filters, $data);
 
 //        $productsbyPrice = $productsRepository->findSearch($data);
 
@@ -60,7 +60,7 @@ class AllProductsController extends AbstractController
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
-                    'productByCategorie' => $productByCategorie,
+                    'productFilter' => $productFilter,
                     'allProducts' => $allProducts,
 //                    'productsByPrice' => $productsbyPrice,
                     'favorite' => $favoriteproduct
@@ -70,7 +70,7 @@ class AllProductsController extends AbstractController
 
         return $this->render('all_products/index.html.twig', [
             'allProducts' => $allProducts,
-            'productByCategorie' => $productByCategorie,
+            'productFilter' => $productFilter,
             'allCategories' => $categoriesRepository->findAll(),
 //            'productsByPrice' => $productsbyPrice,
             'formPrice' => $form->createView(),
