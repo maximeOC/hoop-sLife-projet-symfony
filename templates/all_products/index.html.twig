@@ -3,14 +3,18 @@
 {% block title %}Tous les produits du site{% endblock %}
 
 {% block body %}
-    <main class="all-products js-filter">
-        <div class="filter-categorie js-filter-form">
+    <main class="all-products">
+        <div class="filter-categorie">
             <p>filtres</p>
             <form id="filters" class="filter-categorie_form">
-                {% for categorie in allCategories %}
-                    <input type="checkbox" name="categories[]" id="cat{{ categorie.id }}" value="{{ categorie.id }}">
-                    <label for="cat{{ categorie.id }}">{{ categorie.name }}</label>
-                {% endfor %}
+                <div class="filter-categorie_form_categorie">
+                    {% for categorie in allCategories %}
+                        <div class="filter-categorie_form_categorie_twoItems">
+                            <input type="checkbox" name="categories[]" id="cat{{ categorie.id }}" value="{{ categorie.id }}" class="input-filtres">
+                            <label for="cat{{ categorie.id }}" class="label-filtre">{{ categorie.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
                 {% include 'all_products/_formPrice.html.twig' %}
             </form>
         </div>

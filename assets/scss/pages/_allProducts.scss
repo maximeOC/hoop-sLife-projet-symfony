@@ -6,13 +6,25 @@
     align-items: center;
     width: 20%;
     position: sticky;
+    p{
+      text-decoration: underline;
+      font-weight: bolder;
+    }
     .filter-button{
-      border-radius: 10px;
+      border-radius: 5px;
     }
     &_form{
       display: flex;
       flex-direction: column;
       margin: 10px;
+      &_categorie{
+        margin-bottom: 50px;
+        display: flex;
+        justify-content: space-between;
+        &_twoItems{
+          width: 50%;
+        }
+      }
     }
   }
   .products{
