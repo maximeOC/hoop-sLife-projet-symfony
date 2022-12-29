@@ -88,13 +88,11 @@ class AllProductsController extends AbstractController
         return $this->redirectToRoute('app_all_products_index');
     }
 
-
     #[Route('/favoris/retrait/{id}', name: 'remove_favoris')]
     public function removeFavoris(Products $products, EntityManagerInterface $entityManager, ProductsRepository $productsRepository): Response{
         $products->removeFavori($this->getUser());
-
         $entityManager->persist($products);
         $entityManager->flush();
-        return $this->redirectToRoute('products_categorie_id', array('id' => $products->getCategories()->getId()));
+        return $this->redirectToRoute('app_all_products_index');
     }
 }
