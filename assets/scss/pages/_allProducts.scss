@@ -42,7 +42,7 @@
     .all-products{
       flex-direction: column;
       .filter-categorie{
-        width: 100%;
+        width: 80%;
       }
       .products{
         width: 100%;
@@ -50,6 +50,9 @@
         border-left: none;
         margin-left: 0;
         margin-top: 15px;
+        .rightSideAllProducts{
+          margin-left: 0;
+        }
       }
     }
 }
