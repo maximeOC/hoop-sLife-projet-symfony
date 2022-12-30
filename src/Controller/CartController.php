@@ -39,7 +39,12 @@ class CartController extends AbstractController
             'favorite' => $favoriteproduct
         ]);
     }
-
+    /**
+     * [
+     *  16 => ["none" => 1, "idTailleXL" => 3],
+     *  19 => ["idTailleS" => 10, "idTailleXL" => 1]
+     * ]
+     */
     #[Route('/add/{id}', name: 'add')]
     public function add(SessionInterface $session, Products $products)
     {
@@ -48,12 +53,6 @@ class CartController extends AbstractController
 
         if(!empty($cart[$id])){
             $cart[$id]++;
-            /**
-             * [
-             *  16 => ["none" => 1, "idTailleXL" => 3],
-             *  19 => ["idTailleS" => 10, "idTailleXL" => 1]
-             * ]
-             */
         }else{
             $cart[$id] = 1;
         }
