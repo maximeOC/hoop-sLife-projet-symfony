@@ -5,11 +5,8 @@ const secondsEl = document.getElementById('seconds');
 const daysPlayoffs = '15 april 2023';
 
 function countdown() {
-
     const daysplayoffsdate = new Date(daysPlayoffs);
-
     const currentdate = new Date();
-
     const totalseconds = (daysplayoffsdate - currentdate) / 1000;
 
     const days = Math.floor (totalseconds / 3600 / 24);
@@ -21,8 +18,6 @@ function countdown() {
     hoursEl.innerHTML = hours;
     minsEl.innerHTML = mins;
     secondsEl.innerHTML = seconds;
-
-    // console.log(days, hours, mins, seconds);
 }
 countdown();
 

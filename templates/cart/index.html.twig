@@ -15,7 +15,7 @@
                          <th>Prix</th>
                          <th>Quantité</th>
                          <th>Total</th>
-                         <th>Actions</th>
+                         <th>Supprimer</th>
                      </tr>
                  </thead>
                  <tbody>
@@ -23,12 +23,14 @@
                          <tr>
                              <td>{{ data.product.slug }}</td>
                              <td>{{ data.product.price }} €</td>
-                             <td>{{ data.quantity }}</td>
+                             <td>
+                                 <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add "><i class="fa-solid fa-plus"></i></a>
+                                 {{ data.quantity }}
+                                 <a href="{{ path('cart_remove', {id: data.product.id}) }}" class="cart-delete"><i class="fa-solid fa-minus"></i></a>
+                             </td>
                              <td>{{ data.quantity * (data.product.price ) }} €</td>
                              <td>
-                                 <a href="{{ path('cart_add', {id: data.product.id}) }}" class="cart-add"><i class="fa-solid fa-plus"></i></a> |
-                                 <a href="{{ path('cart_remove', {id: data.product.id}) }}" class="cart-delete"><i class="fa-solid fa-minus"></i></a> |
-                                 <a href="{{ path('cart_delete', {id: data.product.id}) }}" class="cart-delete"><i class="fa-solid fa-trash"></i></a>
+                                 <a href="{{ path('cart_delete', {id: data.product.id}) }}" class="cart-trash"><i class="fa-solid fa-trash"></i></a>
                              </td>
                          </tr>
                      {% endfor %}
@@ -37,14 +39,15 @@
                      <tr>
                          <td colspan="3">Total</td>
                          <td>{{ total}} € </td>
-                         <td><a href="{{ path('cart_delete_all')}}" class="cart-delete"><i class="fa-solid fa-trash"></i></a></td>
+                         <td><a href="{{ path('cart_delete_all')}}" class="cart-trash"><i class="fa-solid fa-trash"></i></a></td>
                      </tr>
                  </tfoot>
-                 <button type="submit" class="btn btn-primary">Commander</button>
+        </table>
+        <div class="commander container">
+            <button type="submit" class="btn btn-primary">Commander</button>
+        </div>
         {% else %}
             <p class="cartEmpty">Votre panier est vide</p>
         {% endif %}
-    </table>
-
     </div>
 {% endblock %}

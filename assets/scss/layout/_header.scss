@@ -13,7 +13,6 @@ header{
         font-size: 2em;
         font-weight: bold;
         color: white;
-        
     }
     .nav-links{
       ul{
@@ -75,6 +74,18 @@ header{
         display: flex;
         flex-direction: column;
         align-items: center;
+        .like{
+          margin: 25px;
+          background-image: linear-gradient(to left top, #080719, #15151f, #1f1f25, #29292c, #333333);
+          border-radius: 10px;
+          width: 100%;
+          text-align: center;
+          i{
+            position: absolute;
+            top: 5px;
+            left: 90px;
+          }
+        }
         li{
           margin: 25px;
           background-image: linear-gradient(to left top, #080719, #15151f, #1f1f25, #29292c, #333333);
