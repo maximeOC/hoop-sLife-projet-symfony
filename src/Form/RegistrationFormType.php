@@ -24,6 +24,12 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                'constraints' => [
+                  new Regex(
+                      '/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/',
+                      'Veuillez rentrer une addresse e-mail, Enfinnnn !'
+                  )
+                ],
                 'label' => 'E-mail'
             ])
             ->add('lastname', TextType::class,[
