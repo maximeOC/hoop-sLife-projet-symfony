@@ -1,7 +1,7 @@
 
-<div class="container rightSideAllProducts">
+<div class=" rightSideAllProducts">
     <div class="product-header">
-        <h1> Tous les produits </h1>
+        <h1> Tous les produits de la boutique</h1>
         {% if is_granted ("ROLE_SUPER_ADMIN") %}
             <a href="{{ path('admin_products_add') }}" class="btn btn-primary">Ajout</a>
         {% endif %}
