@@ -18,6 +18,12 @@
     grid-template-columns: repeat(5, 1fr);
   }
 }
+@media screen and (max-width: 434px){
+  .SectionTeams{
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 10px;
+  }
+}
 
 .noTeams{
   width: 100%;
