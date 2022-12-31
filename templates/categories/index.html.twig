@@ -10,12 +10,14 @@
                 <div class="categoriesProducts">
 
                         {% for cate in detailCatMain %}
-                        <div class="b-game-card">
-                                <div class="b-game-card__cover">
-                                        <h2>{{ cate.name }}</h2>
-                                        <a href="{{ path('products_categorie_id', {id: cate.id}) }}">Voir les produits correspondant à {{cate.slug}} </a>
+                        <a href="{{ path('products_categorie_id', {id: cate.id}) }}">
+                                <div class="b-game-card">
+                                        <div class="b-game-card__cover">
+                                                <h2>{{ cate.name }}</h2>
+                                               <p>Voir les produits correspondant à {{cate.slug}}</p>
+                                        </div>
                                 </div>
-                        </div>
+                        </a>
                         {% endfor %}
                 </div>
         </section>

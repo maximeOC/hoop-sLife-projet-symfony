@@ -81,11 +81,14 @@
         @media screen and (max-width: 768px) {
             grid-template-columns: repeat(1, 1fr);
         }
+        a{
+            text-decoration: none;
+            color: $black;
         .b-game-card {
             position: relative;
             z-index: 1;
             width: 100%;
-            padding-bottom: 30%;
+            //padding-bottom: 30%;
             perspective: 1000px;
 
             &__cover {
@@ -103,15 +106,19 @@
                 background-image: linear-gradient(120deg, #ffff83 0%, #9d6398 100%);
                 background-size: cover;
                 transition: transform .35s ease-in-out;
-                &:hover{
+
+                    &:hover {
                     transform: scale(1.03);
-                }
-                h2{
+                    }
+
+                    h2 {
                     color: black;
-                }
-                a{
-                    text-decoration: none;
-                    color: $black;
+                    }
+
+                    p{
+                        color: black;
+                    }
+
                 }
             }
         }
