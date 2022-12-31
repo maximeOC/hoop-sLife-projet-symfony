@@ -40,9 +40,9 @@
             </div>
         </section>
 
-        <section class="SectionTeams">
+        <section class="SectionTeams my-5 container">
             {% for team in teams %}
-                <a href="{{ path('app_teams_index', {id: team.id}) }}">
+                <a href="{{ path('app_teams_index', {id: team.id}) }} " class="my-3">
                     <div class="SectionTeams-team">
                         <img class="teamImages" src="{{ asset('build/images/teams/') ~ team.image}}" alt="{{ team.alt }}">
                     </div>
@@ -53,7 +53,6 @@
         <section class="articles container col-12 text-center">
             <h2 class="mb-5"> Matchs historiques entre les <strong> Altanta hawks</strong> et les <strong>Boston Celtics</strong></h2>
             <div id="games" class="games">
-
             </div>
         </section>
     </main>
