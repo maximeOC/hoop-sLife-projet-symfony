@@ -17,8 +17,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PriceDataType extends AbstractType
 {
 
+<<<<<<< HEAD
 public function buildForm(FormBuilderInterface $builder, array $options)
 {
+=======
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+>>>>>>> testProductByteam
         $builder
 //            ->add('categories', EntityType::class, [
 //                'label' => false,
@@ -27,6 +32,7 @@ public function buildForm(FormBuilderInterface $builder, array $options)
 //                'expanded' => true,
 //                'multiple' => true
 //            ])
+<<<<<<< HEAD
         ->add('min', NumberType::class, [
             'label' => false,
             'required' => false,
@@ -45,16 +51,45 @@ public function buildForm(FormBuilderInterface $builder, array $options)
 
 public function configureOptions(OptionsResolver $resolver)
 {
+=======
+            ->add('min', NumberType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Prix min'
+                ]
+            ])
+            ->add('max', NumberType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Prix max'
+                ]
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+>>>>>>> testProductByteam
         $resolver->setDefaults([
             'data_class' => PriceData::class,
             'method' => 'GET',
             'csrf_protection' => false
         ]);
+<<<<<<< HEAD
 }
 
 public function getBlockPrefix(): string
 {
     return '';
 }
+=======
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return '';
+    }
+>>>>>>> testProductByteam
 
 }

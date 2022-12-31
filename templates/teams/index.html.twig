@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="product-header">
+                <h1> Tous les produits de </h1>
+                {% if is_granted ("ROLE_SUPER_ADMIN") %}
+                    <a href="{{ path('admin_products_add') }}" class="btn ajout-produits">Ajout</a>
+                {% endif %}
+            </div>
+            <div class="l-container__cardProduct">
+                {% for product in productsByTeams %}
+                    <div class="b-game-cardProduct">
+                        <div class="b-game-cardProduct__coverProduct">
+                            <a href="{{ path('products_details', {slug: product.slug}) }}">
+                                <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}" alt="{{ product.alt }}">
+                            </a>
+                            <br>
+                            <p>{{ product.name }}</p>
+                            <p> prix: {{ product.price}} euros</p>
+                            {% if is_granted ("ROLE_SUPER_ADMIN") %}
+                                <a href="{{ path('admin_products_edit', {id: product.id}) }}">Modifier</a>
+                                <a href="{{ path('admin_products_delete', {id: product.id}) }}">Supprimer</a>
+                            {% endif %}
+                            {% if is_granted ("ROLE_USER") %}
+                                {% for fav in product.favoris %}
+                                    {% if fav.id == app.user.id %}
+                                        <a href="{{ path('products_remove_favoris', {id: product.id}) }}" class="heart"> <i class="fa-solid fa-heart"></i> </a>
+                                    {% else %}
+                                        <a href="{{ path('products_add_favoris', {id: product.id}) }}" class="heart"> <i class="fa-regular fa-heart"></i> </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ path('products_add_favoris', {id: product.id}) }}" class="heart"><i class="fa-regular fa-heart"></i></a>
+                                {% endfor %}
+                            {% else %}
+                                <a href="{{ path('app_login') }}" class="heart"><i class="fa-regular fa-heart"></i></a>
+                            {% endif %}
+                            <div class="showproduct">
+                                {% if app.user %}
+                                    <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                                {% else %}
+                                    <a href="{{ path('app_register') }}" class="btn-add"><i class="fa-solid fa-cart-shopping"></i> </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -40,6 +40,17 @@
             </div>
         </section>
 
+        <section class="SectionTeams">
+            {% for team in teams %}
+                <a href="{{ path('app_teams_index', {id: team.id}) }}">
+                    <div class="SectionTeams-team">
+                        <img class="teamImages" src="{{ asset('build/images/teams/') ~ team.image}}" alt="{{ team.alt }}">
+                        <p>{{ team.name }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </section>
+
         <section class="articles container col-12 text-center">
             <h2 class="mb-5"> Matchs historiques entre les <strong> Altanta hawks</strong> et les <strong>Boston Celtics</strong></h2>
             <div id="games" class="games">

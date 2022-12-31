@@ -1,0 +1,14 @@
+.SectionTeams{
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+    &-team{
+      display: flex;
+      flex-direction: column;
+      .teamImages {
+        width: 60px
+      }
+    }
+}

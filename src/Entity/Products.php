@@ -55,6 +55,8 @@ class Products
     #[ORM\Column(length: 100)]
     private ?string $alt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Teams $team = null;
 
 
     public function __construct()
@@ -280,6 +282,18 @@ class Products
     public function setAlt(string $alt): self
     {
         $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Teams
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Teams $team): self
+    {
+        $this->team = $team;
 
         return $this;
     }
