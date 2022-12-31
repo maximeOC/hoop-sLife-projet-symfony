@@ -21,9 +21,10 @@
       &_categorie{
         margin-bottom: 50px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        //justify-content: space-between;
         &_twoItems{
-          width: 50%;
+          width: 60%;
         }
       }
     }
