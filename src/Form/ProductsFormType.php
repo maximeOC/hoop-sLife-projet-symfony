@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class ProductsFormType extends AbstractType
 {
@@ -32,7 +33,10 @@ class ProductsFormType extends AbstractType
             ])
             ->add('alt', options: [
                 'label' => 'la balise alt'
-                ]);
+                ])
+            ->add('team', options: [
+                'label' => 'relié à une equipe'
+            ]);
 //            ->add('size', EntityType::class, [
 //                'class' => Sizes::class,
 //                'query_builder' => function (SizesRepository $r) {
