@@ -24,13 +24,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class ProductsController extends AbstractController
 {
     #[Route('/categorie/{id}', name: 'categorie_id')]
-    public function index(Request $request, ProductsRepository $productsRepository, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Categories $categorie): Response
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         $products = $productsRepository->findBy(['categories' => $request->get('id')]);
         return $this->render('products/index.html.twig', [
             'products' => $products,
+            'categorie' => $categorie,
             'favorite' => $favoriteproduct
         ]);
     }

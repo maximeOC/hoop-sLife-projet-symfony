@@ -6,20 +6,21 @@
 
     <main class="product">
         <h1>detail de {{ product.name }}</h1>
-                <div class="product-card">
+                <div class="product-card container">
                     <img class="product-Images" src="{{ asset('build/images/products/') ~ product.imagePath}}" />
-                        <div class="product-card__detail">
-                                <p class="product-card__detail__description">{{ product.description }}</p>
-                                <p class="product-card__detail__categorie">Catégorie: {{ product.categories.name }}</p>
-                                <p class="product-card__detail__price">prix: {{ product.price}} euros </p>
-                            <label for="pet-select">Choisissez une taille</label>
-                            <select name="pets" id="pet-select">
-                                <option value="">Choisis une option</option>
-                                {% for size in product.sizes %}
-                                    <option value="">{{ size.name }}</option>
-                                {% endfor %}
-                            </select>
-                                <button><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a></button>
+                        <div class="product-card_detail">
+                                <p class="product-card__detail_description">{{ product.description }}</p>
+                                <p class="product-card_detail_categorie">Catégorie: {{ product.categories.name }}</p>
+                                <p class="product-card_detail_price">prix: {{ product.price}} euros </p>
+                            <div class="product-card_detail_action">
+                                    <select name="pets" id="pet-select">
+                                        <option value="">Choisis une taille</option>
+                                        {% for size in product.sizes %}
+                                            <option value="">{{ size.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                <button class="my-4"><a href="{{ path('cart_add', {id: product.id}) }}">Ajouter au panier</a></button>
+                            </div>
                         </div>
                 </div>
     </main>
