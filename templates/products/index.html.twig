@@ -48,6 +48,10 @@
                     </div>
                 </div>
             {% endfor %}
+             </div>
+        <div class="d-flex justify-content-center">
+            {% do products.setPageRange(2) %}
+            {{ knp_pagination_render(products, './commons/pagination.html.twig') }}
         </div>
     </div>
     </section>

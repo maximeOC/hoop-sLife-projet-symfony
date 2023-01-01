@@ -10,6 +10,7 @@ use App\Repository\CategoriesRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,11 +25,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class ProductsController extends AbstractController
 {
     #[Route('/categorie/{id}', name: 'categorie_id')]
-    public function index(Request $request, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Categories $categorie): Response
+    public function index(Request $request, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Categories $categorie, PaginatorInterface $paginatorInterface): Response
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
-        $products = $productsRepository->findBy(['categories' => $request->get('id')]);
+        $productsbycategories = $productsRepository->findBy(['categories' => $request->get('id')]);
+
+        $products = $paginatorInterface->paginate(
+            $productsbycategories,
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('products/index.html.twig', [
             'products' => $products,
             'categorie' => $categorie,
