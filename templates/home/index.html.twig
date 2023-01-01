@@ -28,7 +28,7 @@
             <div class="l-container">
                 {% for cate in mainCategories %}
                 <div class="b-game-card">
-                        <div class="b-game-card__cover">
+                        <div class="b-game-card_cover">
                             <h3>{{ cate.name }}</h3>
                             <a href="{{ path('app_categories_index', {main_id: cate.id}) }}">Voir les catégories de {{cate.name}} </a>
                         </div>
