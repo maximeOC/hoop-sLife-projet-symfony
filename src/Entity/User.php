@@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Products::class, mappedBy: 'favoris')]
     private Collection $favoris;
 
+    #[ORM\Column(type: 'string', length: 100)]
+    private $resetPassword;
+
+
+
 
     public function __construct()
     {
@@ -252,6 +257,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $favori->removeFavori($this);
         }
 
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getResetPassword(): ?string
+    {
+        return $this->resetPassword;
+    }
+
+    /**
+     * @param mixed $resetPassword
+     */
+    public function setResetPassword(?string $resetPassword): self
+    {
+        $this->resetPassword = $resetPassword;
         return $this;
     }
 }
