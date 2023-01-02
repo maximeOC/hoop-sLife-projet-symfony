@@ -11,9 +11,7 @@ window.onload = () =>{
             Form.forEach((value, key) => {
                 Params.append(key, value);
             })
-
             const Url = new URL(window.location.href)
-            // console.log(Url)
 
             fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
                 headers: {
@@ -24,7 +22,6 @@ window.onload = () =>{
             ).then(data => {
                 const content = document.querySelector("#content");
                 content.innerHTML = data.content
-                // console.log(data.content)
             }).catch(e =>alert(e))
         })
     })

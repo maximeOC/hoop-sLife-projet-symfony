@@ -30,7 +30,6 @@ class ProductsController extends AbstractController
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
         $productsbycategories = $productsRepository->findBy(['categories' => $request->get('id')]);
-
         $products = $paginatorInterface->paginate(
             $productsbycategories,
             $request->query->getInt('page', 1),

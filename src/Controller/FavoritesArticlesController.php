@@ -17,13 +17,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class FavoritesArticlesController extends AbstractController
 {
     #[Route('/', name: '_index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, ProductsRepository $productsRepository): Response
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
+        $productsbyFavorites= $productsRepository->findBy(['favoris' => $request->get('id')]);
 
         return $this->render('favorites_articles/index.html.twig', [
-            'favoriteproduct' => $favoriteproduct,
+            'favorite' => $favoriteproduct,
+            'productsbyFavorites' => $productsbyFavorites
         ]);
     }
 }
