@@ -73,7 +73,7 @@ class SecurityController extends AbstractController
                 $mail->send(
                     'maxime1513@gmail.com',
                     $user->getEmail(),
-                    'Reinitialisation de mdp',
+                    'Reinitialisation de mot de passe',
                     'passwordReset',
                     $context
                 );
