@@ -39,7 +39,6 @@ axios.request(options).then(function (response) {
             </table>`
     }
     document.getElementById('games').innerHTML = output;
-    console.log(response.data.response)
 }).catch(function (error){
     console.error(error);
 });

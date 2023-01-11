@@ -21,6 +21,7 @@ class TeamsController extends AbstractController
     {
         $user = $this->getUser();
         $favoriteproduct = $entityManager->getRepository(User::class)->findBy(['id' => $user]);
+
         $productsByTeams = $productsRepository->findBy(['team' => $request->get('id')]);
         return $this->render('teams/index.html.twig', [
             'productsByTeams' => $productsByTeams,

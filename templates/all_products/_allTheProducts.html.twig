@@ -12,7 +12,7 @@
             <div class="b-game-cardProduct">
                 <div class="b-game-cardProduct__coverProduct ">
                     <a href="{{ path('products_details', {slug: all.slug}) }}">
-                        <img class="product-Images" src="{{ asset('build/images/products/') ~ all.imagePath}}" />
+                        <img class="product-Images" src="{{ asset('build/images/products/') ~ all.imagePath}}" alt="{{ all.alt }}" />
                     </a>
                     <br>
                     <p>{{ all.name }}</p>

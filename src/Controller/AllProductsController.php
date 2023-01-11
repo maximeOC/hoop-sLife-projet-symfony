@@ -28,7 +28,6 @@ class AllProductsController extends AbstractController
      * @throws \Doctrine\ORM\NoResultException
      */
     #[Route('/', name: 'index')]
-    #[ParamConverter('')]
     public function index(
         ProductsRepository $productsRepository,
         EntityManagerInterface $entityManager,
@@ -47,32 +46,13 @@ class AllProductsController extends AbstractController
         $filters = $request->get("categories");
 
         $productFilter = $productsRepository->getCategoriesAndPrice($filters, $data);
-
-//        $productsbyPrice = $productsRepository->findSearch($data);
-
-//        $produitPaginated = $paginator->paginate(
-//            $productByCategorie,
-//            $request->query->getInt('page', 1),
-//            3
-//        );
         $allProducts = $productsRepository->getTotalProducts($filters);
 
-        if($request->get('ajax')){
-            return new JsonResponse([
-                'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
-                    'productFilter' => $productFilter,
-                    'allProducts' => $allProducts,
-//                    'productsByPrice' => $productsbyPrice,
-                    'favorite' => $favoriteproduct
-                ])
-            ]);
-        }
 
         return $this->render('all_products/index.html.twig', [
             'allProducts' => $allProducts,
             'productFilter' => $productFilter,
             'allCategories' => $categoriesRepository->findAll(),
-//            'productsByPrice' => $productsbyPrice,
             'formPrice' => $form->createView(),
             'favorite' => $favoriteproduct
         ]);
@@ -96,3 +76,13 @@ class AllProductsController extends AbstractController
         return $this->redirectToRoute('app_all_products_index');
     }
 }
+//        if($request->get('ajax')){
+//            return new JsonResponse([
+//                'content' => $this->renderView('all_products/_allTheProducts.html.twig', [
+//                    'productFilter' => $productFilter,
+//                    'allProducts' => $allProducts,
+////                    'productsByPrice' => $productsbyPrice,
+//                    'favorite' => $favoriteproduct
+//                ])
+//            ]);
+//        }
